@@ -1,0 +1,52 @@
+.inventory-main{
+    margin: 50px;
+}
+
+.inventory-add-menu{
+    display: flex;
+    width: max-content;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 10px;
+    align-items: start;
+}
+
+.inventory-add-menu button{
+    width: fit-content;
+    position: relative;
+    top: -2em;
+}
+
+.inventory-container{
+    margin-bottom: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+}
+
+.inventory-container div{
+    padding: 10px;
+    margin: 3px;
+}
+
+.inventory-container div:hover, button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+.inventory-update-menu{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 1em;
+    min-width: 300px;
+    min-height: 80px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
