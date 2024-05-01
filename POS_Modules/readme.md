@@ -1,0 +1,1 @@
+A standalone POS System for upcoming G12 exposition event in STI College Marikina
