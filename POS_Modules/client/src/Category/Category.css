@@ -1,0 +1,108 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+:root {
+	--poppins: 'Poppins', sans-serif;
+
+	--light: #F9F9F9;
+	--green: #79AC78;	
+	--light-green: #81a381;
+	--grey: #eee;
+	--dark-grey: #AAAAAA;
+	--dark: #342E37;
+}
+
+html {
+	overflow-x: hidden;
+}
+
+body.dark {
+	--light: #0C0C1E;
+	--grey: #060714;
+	--dark: #FBFBFB;
+}
+
+body {
+	background: var(--grey);
+	overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    max-width: 1200px;
+    gap: 10px;
+}
+.container .food-Option{
+    background-color: #f5f5f5;
+    border: solid 1px #D9D9D9;
+    border-radius: 25px;
+    height: 250px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--poppins), sans-serif;
+}
+
+.food-Option i{
+    font-size: 50px;
+}
+
+.container .drinks-Option{
+    background-color: #f5f5f5;
+    border: solid 1px #D9D9D9;
+    border-radius: 25px;
+    height: 250px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    font-family: var(--poppins), sans-serif;
+}
+
+.drinks-Option i{
+    font-size: 50px;
+}
+
+.container .ingridients-Option{
+    background-color: #f5f5f5;
+    border: solid 1px #D9D9D9;
+    border-radius: 25px;
+    height: 250px;
+    width: 250px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    font-family: var(--poppins), sans-serif;
+}
+
+.ingridients-Option i{
+    font-size: 50px;
+}
+
+.container .add-Option {
+    font-size: 100px;
+    background-color: #f5f5f5;
+    border: solid 1px #D9D9D9;
+    border-radius: 25px;
+    height: 250px;
+    width: 250px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    font-family: var(--poppins), sans-serif;
+    border: dashed 3px;
+}
