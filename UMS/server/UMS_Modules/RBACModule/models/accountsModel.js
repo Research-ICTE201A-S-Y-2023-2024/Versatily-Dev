@@ -7,6 +7,11 @@ const Accounts = database.define('accounts', {
       primaryKey: true,
       autoIncrement: true
     },
+    account_username:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     account_firstName: {
       type: DataTypes.STRING,
       allowNull: false

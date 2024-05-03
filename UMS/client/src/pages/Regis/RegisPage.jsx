@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./RegisPageStyle.css"
 
 const RegisPage = () => {
+
+  const notify = () => toast("Registration Successful!");
+  const notifyError = () => toast("⚠️ Account already exists!", {
+    theme: "dark"
+  });
 
   const [formData, setFormData] = useState({
     account_firstName: '',
@@ -20,9 +27,11 @@ const RegisPage = () => {
     try {
       const response = await axios.post('http://localhost:5000/register', formData);
       console.log(response.data.message);
+      notify();
       // Optionally, redirect user or display success message
     } catch (error) {
       console.error('Error registering user:', error);
+      notifyError();
     }
   };
 
@@ -30,6 +39,8 @@ const RegisPage = () => {
 
   return (
     <div>
+
+      <ToastContainer style={{ position: "absolute" }} />
 
       <div className="main">
 

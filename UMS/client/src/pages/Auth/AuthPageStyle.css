@@ -14,6 +14,28 @@
     --lighter-gray: #E9E9E9;
     --darker-gray: #525252;
     --poppins: "Poppins", sans-serif;
+    --toastify-color-progress-light: green;
+    --toastify-color-dark: white;
+    --toastify-text-color-dark: black;
+    --toastify-color-progress-dark: red;
+}
+
+.Toastify__close-button{
+    color: black;
+}
+
+.Toastify{
+    height: 0;
+    width: max-content;
+}
+
+.Toastify__toast-container{
+    height: 5%;
+}
+
+.Toastify__toast-body div{
+    width: max-content;
+    height: max-content;
 }
 
 .main{
