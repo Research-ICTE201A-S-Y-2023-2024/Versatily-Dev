@@ -32,6 +32,14 @@ const Dashboard = () => {
         </Link>
         <ul className="side-menu top">
           <span className='side-text-category'>Main</span>
+          <Link to="/workbench">
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
+              <a href="#" onClick={() => handleMenuItemClick(0)}>
+                <i className='bx bx-grid-alt'></i>
+                <span className="text">Workbench</span>
+              </a>
+            </li>
+          </Link>
           <Link to="/order">
             <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
