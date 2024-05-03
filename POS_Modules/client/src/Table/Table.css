@@ -1,0 +1,133 @@
+:root {
+    --light_green : rgba(121, 172, 120, 0.299);
+    --black : black;
+    --color : #F5F5F5;
+    --violet : #8806CE;
+    --stroke : #D9D9D9;
+    --Dark_White : #ECECEC;
+}
+
+.workbench-container {
+    border-radius: 10px;
+    margin: 0.5rem;
+    padding: 0.5em;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+}
+
+.add-table {
+    background-color: var(--light_green);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+}
+
+.add-table {
+    background-color: var(--light_green);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+}
+
+@media screen and (max-width: 767px) {
+    .add-table-container {
+        margin-left: 0; /* Remove left margin */
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .add-table {
+        margin-top: 10px; /* Add some top margin for spacing */
+        width: auto; /* Make button full width */
+    }
+}
+
+.workbench-table {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%; /* Make table full width */
+}
+
+table {
+    width: 100%;
+    border-spacing: 5px;
+    padding: 2%;
+    border-collapse: collapse;
+}
+
+
+td, th{
+    text-align: center;
+    padding: 0.7rem;
+    
+}
+
+th{
+    padding-bottom: 10px;
+    background-color: var(--stroke);
+}
+
+td{
+    border-collapse: collapse;
+    background-color: var(--light_green);
+}
+
+.td-id {
+    font-weight: bold;
+}
+
+/* ICONS */
+.action-icons {
+    gap: 10px;
+    font-size: 120%;
+}
+
+#bx-trash {
+    margin-left: 5%;
+}
+
+
+
+
+
+/* Modal CSS */
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #F0F3F5;
+    padding: 40px;
+    border-radius: 10px;
+    width: 20%;
+    max-width: 1000px;
+    min-width: 300px;
+    max-height: 100vh;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.modal-content::-webkit-scrollbar{
+    display: none;
+}
