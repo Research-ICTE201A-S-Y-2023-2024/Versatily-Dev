@@ -280,7 +280,7 @@ const Category = () => {
                             </div>
                             <br></br>
                             <div className='category-btn-container'>
-                                <button type='button' className='category-btn-delete' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='button' className='category-btn-cancel' onClick={toggleModalCreate}>Cancel</button>
                                 <button type='submit' className='category-btn-submit'>Submit</button>
                             </div>
                         </form>
@@ -329,7 +329,7 @@ const Category = () => {
                             </div>
                             <br></br>
                             <div className='category-btn-container'>
-                                <button type='button' className='category-btn-delete' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='button' className='category-btn-cancel' onClick={toggleModalCreate}>Cancel</button>
                                 <button type='submit' className='category-btn-submit'>Submit</button>
                             </div>
                         </form>
