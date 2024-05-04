@@ -1,6 +1,6 @@
 import Category from '../models/categoryModel.js';
 import path from 'path';
-import fs, { stat } from 'fs';
+import fs from 'fs';
 
 export const getAllCategory = async (request, response) => {
     try {
@@ -10,6 +10,25 @@ export const getAllCategory = async (request, response) => {
         response.json({
             message: error.message
         })
+    }
+}
+
+export const getCategoryById = async (request, response) => {
+    try {
+        const response = await Category.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if (!response) {
+            return response.status(404).json({ msg: "Product not found" });
+        }
+
+        response.json(response);
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).json({ msg: "Internal Server Error" });
     }
 }
 
