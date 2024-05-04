@@ -11,10 +11,27 @@ export const getAllWorkbench = async (request, response) => {
     }
 }
 
+export const getWorkbenchById = async (request, response) => {
+    try {
+        const workbench = await Workbench.findOne({
+            where: {
+                id: request.params.id
+            }
+        });
+    
+        if (!workbench) {
+            return response.status(404).json({ msg: "Workbench not found" });
+        }
+    
+        response.json(workbench);
+    } catch (error) {
+        response.status(500).json({ msg: error.message });
+    }
+}
+
 // create Workbench
 export const saveWorkbench = async (request, response) => {
-    const workbenchID = request.body;
-    const status = request.body;
+    const {workbenchID, status} = request.body;
 
     if (!workbenchID || !status) {
         return response.status(400).json({ msg: "workbenchID and status are required fields" });
@@ -31,7 +48,7 @@ export const saveWorkbench = async (request, response) => {
         return response.status(201).json({ msg: "Workbench Created Successfully" });
     } catch (error) {
         console.error(error);
-        return response.status(500).json({ msg: "Database Error" });
+        return response.status(500).json({ msg: error.message });
     }
 }
 
