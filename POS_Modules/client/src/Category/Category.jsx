@@ -3,19 +3,76 @@ import { useEffect, useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Category = () => {
     const [categories, setCategories] = useState([]);
+    const [name, setName] = useState('');
+    const [status, setStatus] = useState(false)
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(''); 
+    const [modalCreate, setModalCreate] = useState(false);
+    const [modalUpdate, setModalUpdate] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
+    const [setSelectedCategoryId] = useState(null);
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    // Function to handle checkbox change for product status
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+        setStatus(!isChecked ?  1 :0);
+    };
+
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
+    
+    // Function to load the selected image for the product
+    const loadImage = (e) => {
+        const image = e.target.files[0];
+        setFile(image);
+        setPreview(URL.createObjectURL(image));
+    }
+
+    const toggleModalCreate = () => {
+        setName(''); 
+        setStatus(false);
+        setFile(null);
+        setModalCreate(!modalCreate);
+    };
 
     const handleMenuItemClick = (index) => {
       setActiveMenuItem(index); // Set active menu item index
     };
+
     const handleToggleSidebar = () => {
       // Toggle sidebar
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hide');
     };
+
+    // Function to fetch a product by ID for updating
+    const getCategoryById = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/categories/${id}`);
+            const product = response.data;
+            setName(product.name);
+            setStatus(product.outOfStock);
+            setIsChecked(product.outOfStock);
+            setFile(product.image);
+            setPreview(product.url);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         getAllCategory();
@@ -29,6 +86,40 @@ const Category = () => {
             console.log("Error fetching the category", error);
         }
     };
+
+    // Function to toggle the update product modal
+    const toggleModalUpdate = async (categoryId) => {
+        setSelectedCategoryId(categoryId);
+        if (categoryId) {
+            await getCategoryById(categoryId);
+        }
+        setModalUpdate(!modalUpdate);
+    };
+
+
+    // Function to save a new product
+    const saveCategory = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('status', status);
+        if (file) {
+            formData.append('file', file);
+        }
+
+        try {
+            await axios.post('http://localhost:5000/categories', formData, {
+                headers: {
+                    "Content-type": "multipart/form-data"
+                }
+            });
+            toast.success('Category Created Successfully', toastConfig );
+            getAllCategory();
+            toggleModalCreate();
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     return(
         <>
@@ -123,8 +214,6 @@ const Category = () => {
             {/* SIDEBAR */}
 
 
-
-
             <section id="content">
                 {/* NAVBAR */}
                 <nav>
@@ -162,7 +251,7 @@ const Category = () => {
                                 <span>No category found.</span>
                             </div>
                         )}
-                        <div className='add-Option'>
+                        <div className='add-Option' onClick={toggleModalCreate}>
                             <i className='bx bx-plus'></i>
                         </div>
                     </div>
@@ -170,6 +259,87 @@ const Category = () => {
                 {/* MAIN */}
             </section>
             {/* CONTENT */}
+            {modalCreate && (
+                <div className="modal-cateogory">
+                    <div onClick={toggleModalCreate} className="overlay"></div>
+                    <div className="modal-content-category">
+                        <h1>Add Category</h1>
+                        <hr></hr>
+                        <form className='form' onSubmit={saveCategory}>
+                            <div>
+                                <label>Name<span>*</span></label> <br></br>
+                                <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Type category name' required/>
+                                <h5 >Validation Text</h5>
+                            </div>
+                            <div>
+                                {/* Empty Div */}
+                            </div>
+                            <div>
+                                <label>Product Image</label> <br />
+                                <input type='file' className='input' onChange={loadImage} required />
+                            </div>
+                            <br></br>
+                            <div className='category-btn-container'>
+                                <button type='button' className='category-btn-delete' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='submit' className='category-btn-submit'>Submit</button>
+                            </div>
+                        </form>
+                        <button className="close-modal" onClick={toggleModalCreate}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+            {modalUpdate && (
+                <div className="modal-cateogory">
+                    <div onClick={toggleModalUpdate} className="overlay"></div>
+                    <div className="modal-content-category">
+                    <h1>Add Category</h1>
+                        <hr></hr>
+                        <form className='form'>
+                            <div>
+                                <label>Name<span>*</span></label> <br></br>
+                                <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Type category name' required/>
+                                <h5 >Validation Text</h5>
+                            </div>
+                            <div className={`product-cell status-cell ${isChecked ? 'disabled' : 'active'}`}>
+                                <label>Category Status</label><br />
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    name="productOutStock"
+                                    id="productOutStock"
+                                    checked={isChecked}
+                                    onChange={handleCheckboxChange}
+                                />
+                                <label className="form-check-label" htmlFor="productOutStock"></label>
+                                <input type="hidden" name="status" value={isChecked ? 1 : 0} />
+                                <p>Status: {!isChecked ? '0 (In Stock)' : '1 (Out of Stock)'}</p>
+                            </div>
+                            <div className="update_img">
+                                <label>Category Image</label> <br />
+                                <input type='file' className='input' onChange={loadImage} />
+                                <div className="saved_img">
+                                    {preview ? (
+                                        <img src={preview} alt={name} width={120} height={120} />
+                                    ) : (
+                                        ""
+                                    )}
+                                </div>
+                            </div>
+                            <br></br>
+                            <div className='category-btn-container'>
+                                <button type='button' className='category-btn-delete' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='submit' className='category-btn-submit'>Submit</button>
+                            </div>
+                        </form>
+                        <button className="close-modal" onClick={toggleModalCreate}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+            <ToastContainer/>
         </>
     );
 }
