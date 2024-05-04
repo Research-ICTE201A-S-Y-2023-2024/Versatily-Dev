@@ -1,4 +1,4 @@
- import './Dashboard.css'
+import './Dashboard.css'
 import { useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
@@ -56,37 +56,13 @@ const Dashboard = () => {
               </a>
             </li>
           </Link>
-          <Link to="/overview">
-            <li className={activeMenuItem === 1 ? 'active' : ''}>
-              <a href="#" onClick={() => handleMenuItemClick(0)}>
-                <i className='bx bx-search'></i>
-                <span className="text">Overview</span>
-              </a>
-            </li>
-          </Link>
-          <Link to="/products">
-            <li className={activeMenuItem === 1 ? 'active' : ''}>
-              <a href="#" onClick={() => handleMenuItemClick(0)}>
-                <i className='bx bx-package'></i>
-                <span className="text">Product</span>
-              </a>
-            </li>
-          </Link>
-          <Link to="/categories">
-            <li className={activeMenuItem === 1 ? 'active' : ''}>
-              <a href="#" onClick={() => handleMenuItemClick(0)}>
-                <i className='bx bx-category'></i>
-                <span className="text">Category</span>
-              </a>
-            </li>
-          </Link>
           
           <span className='side-text-category'>Transaction</span>
           <Link to="/void-transaction">
             <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
-                <i className='bx bx-notepad'></i>
-                <span className="text">Void Tranasaction</span>
+                <i className='bx bx-block'></i>
+                <span className="text">Void </span>
               </a>
             </li>
           </Link>
@@ -100,20 +76,9 @@ const Dashboard = () => {
             </li>
           </Link>
 
-          <Link to="/invoice-transaction">
-            <li className={activeMenuItem === 1 ? 'active' : ''}>
-              <a href="#" onClick={() => handleMenuItemClick(0)}>
-                <i className='bx bx-receipt'></i>
-                <span className="text">Invoice</span>
-              </a>
-            </li>
-          </Link>
         </ul>
       </section>
       {/* SIDEBAR */}
-
-
-
 
       <section id="content">
         {/* NAVBAR */}
@@ -141,7 +106,7 @@ const Dashboard = () => {
         <main>
           <div className="welcome">
             <div className="WT1">
-              Welcome to <br/>
+              Welcome to Staff<br/>
             </div>
             <div className="WT2">Cusina De Mariquina</div>
             <div className="next-btn">
