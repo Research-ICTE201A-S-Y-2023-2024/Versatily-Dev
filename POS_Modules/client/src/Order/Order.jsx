@@ -1,9 +1,51 @@
 import './Order.css';
-import { useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
-import {Link} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Order = () => {
+
+    const [products, setProducts] = useState([]);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const workbenchID = queryParams.get('workbenchID');
+    const [workbench, setWorkbench] = useState(null);
+
+    useEffect(() => {
+        getAllProducts();
+    }, [])
+
+    const getAllProducts = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/products');
+            setProducts(response.data);
+        } catch (error) {
+            console.error("Error fetching products");
+        }
+    }
+
+    useEffect(() => {
+        if (workbenchID) {
+            fetchWorkbenchDetails(workbenchID);
+        } else {
+            console.log("No workbench ID provided.");
+        }
+    }, [workbenchID]);
+
+    const fetchWorkbenchDetails = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/workbench/${id}`);
+            
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error('Failed to fetch workbench details');
+            }
+
+            setWorkbench(response.data);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    };
 
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
@@ -136,7 +178,38 @@ const Order = () => {
 
                 {/* MAIN */}
                 <main>
-                    
+                    {workbench ? (
+                            <>
+                                <h2>Workbench Details</h2>
+                                <p>ID: {workbench.id}</p>
+                                <p>Workbench ID: {workbench.workbenchID}</p>
+                                <p>Status: {workbench.status ? 'Occupied' : 'Vacant'}</p>
+                            </>
+                        ) : (
+                            <p>Loading...</p>
+                        )}
+                    <div className="container">
+                        {products.length > 0 ? (
+                            products.map((product, index) => (
+                                <div key={index} className='product-row'>
+                                    <img src={product.url} alt="product" width={120} height={120} />
+                                    <div className="info">
+                                        <h2>{product.name}</h2>
+                                        <h3>₱{product.price}</h3>
+                                        <div className="quantity-controls">
+                                            <button>-</button>
+                                                <span className="quantity">0</span>
+                                            <button>+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="product-row">
+                                <span>No products found.</span>
+                            </div>
+                        )}
+                    </div>
                 </main>
                 {/* MAIN */}
             </section>
@@ -145,4 +218,4 @@ const Order = () => {
     );
 }
 
-export default Order
+export default Order;
