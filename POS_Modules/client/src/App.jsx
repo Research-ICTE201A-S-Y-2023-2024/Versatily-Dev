@@ -4,6 +4,7 @@ import OrderPage from './Order/Order.jsx'
 import Product from './Product/Product.jsx'
 import Table from './Table/Table.jsx'
 import Category from './Category/Category.jsx'
+import './App.css';
 
 function App() {
 
