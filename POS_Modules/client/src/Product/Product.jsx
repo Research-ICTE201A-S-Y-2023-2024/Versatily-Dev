@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import '../assets/css/modal.css';
 import axios from 'axios';
 
 const Product = () => {
@@ -23,6 +22,12 @@ const Product = () => {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(''); 
     const [selectedProductId, setSelectedProductId] = useState(null);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
 
 
     const [isChecked, setIsChecked] = useState(false);
@@ -77,9 +82,6 @@ const Product = () => {
         }
     }
 
-    useEffect(() => {
-        getAllCategory();
-    }, []);
 
     const getAllCategory = async () => {
         try {
@@ -346,7 +348,46 @@ const Product = () => {
                         <div className="app-content-header">
                             <button className="app-content-headerButton" onClick={toggleModalCreate}>Add Product</button>
                         </div>
-                        <div className="workbench-table">
+                        <div className="app-content-actions-wrapper">
+                            <div className="filter-button-wrapper">
+                                <div className="filter-container">
+                                    <button className="action-button" onClick={toggleMenu} >
+                                        <span>Filter</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-filter">
+                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                                        </svg>
+                                    </button>
+                                    {isOpen && (
+                                        <div className="filter-menu active">
+                                        <label>Category</label>
+                                        <select>
+                                            <option value="" disabled>Select category</option>
+                                                {categories && categories.length > 0 ? (
+                                                    categories.map((category, index) => (
+                                                        <option key={index} value={category.name}>{category.name}</option>
+                                                    ))
+                                                ) : (
+                                                    <option disabled>No categories found</option>
+                                                )}
+                                        </select>
+                                        <label>Status</label>
+                                        <select>
+                                            <option value="All Status">All Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Disabled">Disabled</option>
+                                        </select>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <button className='action-button' title="List View">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                            </button>
+                            <button className='action-button' title="Grid View">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            </button>
+                        </div>
+                        <div className="product-table">
                             <table>
                                 <thead>
                                     <tr>
@@ -395,7 +436,7 @@ const Product = () => {
             {modalCreate && (
                 <div className="modal">
                     <div onClick={toggleModalCreate} className="overlay"></div>
-                    <div className="modal-content">
+                    <div className="modal-product">
                         <h1>Add Product</h1>
                         <hr></hr>
                         <form className='form' onSubmit={saveProduct}>
@@ -437,8 +478,8 @@ const Product = () => {
                             </div>
                             <br></br>
                             <div className='btn-container'>
-                                <button type='button' className='btn-delete' onClick={toggleModalCreate}>Cancel</button>
-                                <button type='submit' className='btn-submit'>Submit</button>
+                                <button type='button' className='product-btn-cancel' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='submit' className='product-btn-submit'>Submit</button>
                             </div>
                         </form>
                         <button className="close-modal" onClick={toggleModalCreate}>
@@ -450,7 +491,7 @@ const Product = () => {
             {modalUpdate && (
                 <div className="modal">
                     <div onClick={toggleModalUpdate} className="overlay"></div>
-                    <div className="modal-content">
+                    <div className="modal-product">
                         <h1>Update Product</h1>
                         <hr></hr>
                         <form className='form' onSubmit={updateProduct}>
@@ -510,9 +551,9 @@ const Product = () => {
                             </div>
                             <br></br>
                             <br></br>
-                            <div className='btn-container'>
-                                <button type='button' className='btn-delete' onClick={toggleModalUpdate}>Cancel</button>
-                                <button type='submit' className='btn-submit'>Update</button>
+                            <div className='product-btn-container'>
+                                <button type='button' className='product-btn-delete' onClick={toggleModalUpdate}>Cancel</button>
+                                <button type='submit' className='product-btn-submit'>Update</button>
                             </div>
                         </form>
                         <button className="close-modal" onClick={toggleModalUpdate}>
