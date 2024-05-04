@@ -24,3 +24,14 @@ CREATE TABLE IF NOT EXISTS `product` (
     `updatedAt` DATETIME NOT NULL, 
     PRIMARY KEY (`id`)
 )
+
+CREATE TABLE IF NOT EXISTS `category` (
+    `id` INTEGER NOT NULL auto_increment , 
+    `image` VARCHAR(255) NOT NULL, 
+    `url` VARCHAR(255) NOT NULL, 
+    `name` VARCHAR(255) NOT NULL, 
+    `status` VARCHAR(255) NOT NULL, 
+    `createdAt` DATETIME NOT NULL, 
+    `updatedAt` DATETIME NOT NULL, 
+    PRIMARY KEY (`id`)
+)
