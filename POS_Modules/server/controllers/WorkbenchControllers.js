@@ -1,4 +1,4 @@
-import Workbench from "../models/WorkbenchModels.js";
+import Workbench from "../models/workbenchModel.js";
 
 export const getAllWorkbench = async (request, response) => {
     try {

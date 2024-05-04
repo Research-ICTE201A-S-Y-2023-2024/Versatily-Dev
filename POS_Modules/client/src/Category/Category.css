@@ -42,67 +42,37 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
-    max-width: 1200px;
     gap: 10px;
 }
-.container .food-Option{
+.container .category-row {
     background-color: #f5f5f5;
     border: solid 1px #D9D9D9;
-    border-radius: 25px;
     height: 250px;
     width: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--poppins), sans-serif;
-}
-
-.food-Option i{
-    font-size: 50px;
-}
-
-.container .drinks-Option{
-    background-color: #f5f5f5;
-    border: solid 1px #D9D9D9;
     border-radius: 25px;
-    height: 250px;
-    width: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-    font-family: var(--poppins), sans-serif;
-}
-
-.drinks-Option i{
-    font-size: 50px;
-}
-
-.container .ingridients-Option{
-    background-color: #f5f5f5;
-    border: solid 1px #D9D9D9;
-    border-radius: 25px;
-    height: 250px;
-    width: 250px;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    font-family: var(--poppins), sans-serif;
-}
-
-.ingridients-Option i{
-    font-size: 50px;
+    margin: 8px;
+    padding: 8px;
+    cursor: pointer;
+    position: relative;
 }
 
 .container .add-Option {
     font-size: 100px;
     background-color: #f5f5f5;
-    border: solid 1px #D9D9D9;
-    border-radius: 25px;
+    border: dashed 3px;
     height: 250px;
     width: 250px;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     font-family: var(--poppins), sans-serif;
-    border: dashed 3px;
+    border-radius: 25px;
+    margin: 8px;
+    padding: 8px;
+    cursor: pointer;
+    position: relative;
 }

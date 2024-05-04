@@ -61,7 +61,7 @@ const Order = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/product">
+                <Link to="/products">
                     <li className={activeMenuItem === 1 ? 'active' : ''}>
                         <a href="#" onClick={() => handleMenuItemClick(0)}>
                             <i className='bx bx-package'></i>

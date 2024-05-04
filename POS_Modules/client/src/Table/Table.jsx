@@ -2,7 +2,7 @@ import './Table.css';
 import { useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
-
+import '../assets/css/modal.css';
 const Table = () => {
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
@@ -18,16 +18,12 @@ const Table = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [email, setEmail] = useState('');
-    const [status, setStatus] = useState(50);
 
     const openModal = () => {
         setIsModalOpen(true);
     };
     const closeModal = () => {
         setIsModalOpen(false);
-    };
-    const toggleSlider = () => {
-        setStatus(status === 0 ? 100 : 0);
     };
     
     return(
@@ -74,7 +70,7 @@ const Table = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/product">
+                <Link to="/products">
                     <li className={activeMenuItem === 1 ? 'active' : ''}>
                         <a href="#" onClick={() => handleMenuItemClick(0)}>
                             <i className='bx bx-package'></i>
@@ -164,7 +160,7 @@ const Table = () => {
                                 </tr>
                                 <tr>
                                     <td className="td-id">148352</td>
-                                    <td>user@gmail.com</td>
+                                    <td>khylemyrvin@gmail.com</td>
                                     <td>Vacant</td>
                                     <td className='action-icons'>
                                         <i id="bx-edit" className='bx bx-edit' ></i> 
@@ -231,15 +227,17 @@ const Table = () => {
                 </main>
                 {/* MAIN */}
             </section>
+
+            
             {/* CONTENT */}
             {isModalOpen && (
                 <div className="modal">
                     <div className="overlay"></div>
                         <div className="modal-content">
-                            <h1>Add Table</h1>
+                            <h2 className="add-table-t">Add Table</h2>
                             <hr></hr>
                             <form className='form'>
-                                <label htmlFor="email">Email:</label>
+                                <label htmlFor="email">Email: </label>
                                 <input
                                     type="email"
                                     id="email"
@@ -247,20 +245,13 @@ const Table = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <div className='statusrd'>
-                                    <span>Status: </span><br />
-                                    <input
-                                    type="radio"
-                                    id="status"
-                                    name="status"
-                                    min="0"
-                                    max="100"
-                                    />
-                                    <label htmlFor="status">Vacant</label>
+                                <div>
+                                    <span>Status: </span>
+                                    <label>Vacant</label>
                                 </div>
                                 
                                 <div className='btn-container'>
-                                    <button type='button' className='btn-delete' onClick={closeModal}>Cancel</button>
+                                    <button type='button' className='btn-cancel' onClick={closeModal}>Cancel</button>
                                     <button type='submit' className='btn-submit'>Submit</button>
                                 </div>
                         </form>

@@ -1,10 +1,203 @@
 import './Product.css';
-import { useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import '../assets/css/modal.css';
+import axios from 'axios';
 
 const Product = () => {
 
+    // State
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [modalCreate, setModalCreate] = useState(false);
+    const [modalUpdate, setModalUpdate] = useState(false);
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [category, setCategory] = useState('');
+    const [outOfStock, setOutOfStock] = useState(false);
+    const [description, setDescription] = useState();
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(''); 
+    const [selectedProductId, setSelectedProductId] = useState(null);
+
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    // Function to handle checkbox change for product status
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+        setOutOfStock(!isChecked ?  1 :0);
+    };
+
+    // Function to load the selected image for the product
+    const loadImage = (e) => {
+        const image = e.target.files[0];
+        setFile(image);
+        setPreview(URL.createObjectURL(image));
+    }
+
+    // Function to toggle the create product modal
+    const toggleModalCreate = () => {
+        setName(''); 
+        setPrice('');
+        setQuantity('');
+        setCategory('');
+        setOutOfStock(false);
+        setDescription('');
+        setFile(null);
+        setModalCreate(!modalCreate);
+    };
+
+    // Function to toggle the update product modal
+    const toggleModalUpdate = async (productId) => {
+        setSelectedProductId(productId);
+        if (productId) {
+            await getProductById(productId);
+        }
+        setModalUpdate(!modalUpdate);
+    };
+
+     // Fetch all products on component mount
+    useEffect(() => {
+        getProducts();
+        getAllCategory();
+    }, []);
+
+    // Function to fetch all products from the server
+    const getProducts = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/products');
+            setProducts(response.data);
+        } catch (error) {
+            console.error("Error fetching the products", error);
+        }
+    }
+
+    useEffect(() => {
+        getAllCategory();
+    }, []);
+
+    const getAllCategory = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/categories');
+            setCategories(response.data);
+        } catch (error) {
+            console.log("Error fetching the category", error);
+        }
+    };
+
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
+
+    // Function to save a new product
+    const saveProduct = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('category', category);
+        formData.append('outOfStock', outOfStock);
+        formData.append('description', description);
+        if (file) {
+            formData.append('file', file);
+        }
+
+        try {
+            await axios.post('http://localhost:5000/products', formData, {
+                headers: {
+                    "Content-type": "multipart/form-data"
+                }
+            });
+            toast.success('Product Created Successfully', toastConfig );
+            getProducts();
+            toggleModalCreate();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Function to delete a product
+    const deleteProduct = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/products/${id}`);
+            toast.success('Product Deleted Successfully', toastConfig);
+            getProducts();  
+        } catch (error) {
+            console.log(error);
+            toast.error('Failed to delete product', toastConfig);
+        }
+    }
+
+    // Function to fetch a product by ID for updating
+    const getProductById = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/products/${id}`);
+            const product = response.data;
+            setName(product.name);
+            setPrice(product.price);
+            setQuantity(product.quantity);
+            setCategory(product.category);
+            setOutOfStock(product.outOfStock);
+            setIsChecked(product.outOfStock);
+            setDescription(product.description);
+            setFile(product.image);
+            setPreview(product.url);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+     // Function to update an existing product
+    const updateProduct = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('category', category);
+        formData.append('outOfStock', outOfStock);
+        formData.append('description', description);
+    
+        // Check if a new file is selected
+        if (file) {
+            formData.append('file', file);
+        }
+    
+        try {
+            const response = await axios.patch(
+                `http://localhost:5000/products/${selectedProductId}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            );
+    
+            console.log("Product updated successfully");
+            toast.success('Product Updated Successfully', toastConfig);
+    
+            console.log("Response:", response.data);
+            getProducts();
+            toggleModalUpdate(null);
+        } catch (error) {
+            console.log("Update error:", error);
+        }
+    };
+    
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
     const handleMenuItemClick = (index) => {
@@ -15,6 +208,19 @@ const Product = () => {
         // Toggle sidebar
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hide');
+    };
+
+    // Function to format a timestamp into a readable date string
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        };
+        return date.toLocaleDateString('en-US', options);
     };
     
     return(
@@ -29,7 +235,7 @@ const Product = () => {
                 </Link>
                 <ul className="side-menu top">
                 <span className='side-text-category'>Main</span>
-                <Link to="/table">
+                <Link to="/workbench">
                     <li className={activeMenuItem === 1 ? 'active' : ''}>
                     <a href="#" onClick={() => handleMenuItemClick(0)}>
                         <i className='bx bx-grid-alt'></i>
@@ -61,7 +267,7 @@ const Product = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/product">
+                <Link to="/products">
                     <li className={activeMenuItem === 1 ? 'active' : ''}>
                         <a href="#" onClick={() => handleMenuItemClick(0)}>
                             <i className='bx bx-package'></i>
@@ -136,13 +342,188 @@ const Product = () => {
 
                 {/* MAIN */}
                 <main>
-                    
+                    <div className="app-content">
+                        <div className="app-content-header">
+                            <button className="app-content-headerButton" onClick={toggleModalCreate}>Add Product</button>
+                        </div>
+                        <div className="workbench-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>URL</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>OutOfStock</th>
+                                        <th>CreateDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.length > 0 ? (
+                                        products.map((product, index) => (
+                                            <tr key={index}>
+                                                <td><img src={product.url} alt="product" width={50} height={50} /></td>
+                                                <td>{product.image}</td>
+                                                <td>{product.name}</td>
+                                                <td>{product.category}</td>
+                                                <td>{product.price}</td>
+                                                <td>{product.quantity}</td>
+                                                <td>{product.outOfStock ? 'Disabled' : 'Available'}</td>
+                                                <td>{formatDate(product.createdAt)}</td>
+                                                <td>
+                                                    <i id="bx-edit" onClick={() => toggleModalUpdate(product.id)} className='bx bx-edit' ></i> 
+                                                    <i id="bx-trash" onClick={() => deleteProduct(product.id)} className='bx bx-trash' ></i>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="9">No products found.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </main>
                 {/* MAIN */}
             </section>
             {/* CONTENT */}
+            {modalCreate && (
+                <div className="modal">
+                    <div onClick={toggleModalCreate} className="overlay"></div>
+                    <div className="modal-content">
+                        <h1>Add Product</h1>
+                        <hr></hr>
+                        <form className='form' onSubmit={saveProduct}>
+                            <div>
+                                <label>Product Name<span>*</span></label> <br></br>
+                                <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Type product name' required/>
+                                <h5 >Validation Text</h5>
+                                <label>Price<span>*</span></label> <br></br>
+                                <input className='input' type='number' value={price} onChange={(e) => setPrice(e.target.value)} placeholder='₱500' required/>
+                                <h5 >Validation Text</h5>
+                            </div>
+                            <div>
+                            <label>Category<span>*</span></label>
+                                <select name="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                    <option value="" disabled>Select category</option>
+                                    {categories && categories.length > 0 ? (
+                                        categories.map((category, index) => (
+                                            <option key={index} value={category.name}>{category.name}</option>
+                                        ))
+                                    ) : (
+                                        <option disabled>No categories found</option>
+                                    )}
+                                </select>
+                                <h5 >Validation Text</h5>
+                                <label>Stock<span>*</span></label> <br></br>
+                                <input className='input' type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder='Type product quantity' required/>
+                                <h5 >Validation Text</h5>
+                            </div>
+                            <div>
+                                <label>Description<span>*</span></label> <br></br>
+                                <textarea className='input' value={description} onChange={(e) => setDescription(e.target.value)} rows={4} cols={50} placeholder='Enter the description' required/>
+                            </div>
+                            <div>
+                                {/* Empty Div */}
+                            </div>
+                            <div>
+                                <label>Product Image</label> <br />
+                                <input type='file' className='input' onChange={loadImage} required />
+                            </div>
+                            <br></br>
+                            <div className='btn-container'>
+                                <button type='button' className='btn-delete' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='submit' className='btn-submit'>Submit</button>
+                            </div>
+                        </form>
+                        <button className="close-modal" onClick={toggleModalCreate}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+            {modalUpdate && (
+                <div className="modal">
+                    <div onClick={toggleModalUpdate} className="overlay"></div>
+                    <div className="modal-content">
+                        <h1>Update Product</h1>
+                        <hr></hr>
+                        <form className='form' onSubmit={updateProduct}>
+                        <div>
+                            <label>Product Name<span>*</span></label> <br></br>
+                            <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Type product name' required/>
+                            <h5 >Validation Text</h5>
+                            <label>Price<span>*</span></label> <br></br>
+                            <input className='input' type='number' value={price} onChange={(e) => setPrice(e.target.value)} placeholder='₱500' required/>
+                            <h5 >Validation Text</h5>
+                        </div>
+                            <div>
+                            <label>Category<span>*</span></label>
+                                <select name="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                    <option value="" disabled>Select category</option>
+                                    {categories && categories.length > 0 ? (
+                                        categories.map((category, index) => (
+                                            <option key={index} value={category.name}>{category.name}</option>
+                                        ))
+                                    ) : (
+                                        <option disabled>No categories found</option>
+                                    )}
+                                </select>
+                                <h5 >Validation Text</h5>
+                                <label>Quantity<span>*</span></label> <br></br>
+                                <input className='input' type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder='Type product quantity' required/>
+                                <h5 >Validation Text</h5>
+                            </div>
+                            <div>
+                                <label>Description<span>*</span></label> <br></br>
+                                <textarea className='input' value={description} onChange={(e) => setDescription(e.target.value)} rows={4} cols={50} maxLength={35} minLength={25} placeholder='Enter the description' required/>
+                            </div>
+                            <div className={`product-cell status-cell ${isChecked ? 'disabled' : 'active'}`}>
+                                <label>Product Status</label><br />
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    name="productOutStock"
+                                    id="productOutStock"
+                                    checked={isChecked}
+                                    onChange={handleCheckboxChange}
+                                />
+                                <label className="form-check-label" htmlFor="productOutStock"></label>
+                                <input type="hidden" name="outOfStock" value={isChecked ? 1 : 0} />
+                                <p>Status: {!isChecked ? '0 (In Stock)' : '1 (Out of Stock)'}</p>
+                            </div>
+                            <div className="update_img">
+                                <label>Product Image</label> <br />
+                                <input type='file' className='input' onChange={loadImage} />
+                                <div className="saved_img">
+                                    {preview ? (
+                                        <img src={preview} alt={name} width={120} height={120} />
+                                    ) : (
+                                        ""
+                                    )}
+                                </div>
+                            </div>
+                            <br></br>
+                            <br></br>
+                            <div className='btn-container'>
+                                <button type='button' className='btn-delete' onClick={toggleModalUpdate}>Cancel</button>
+                                <button type='submit' className='btn-submit'>Update</button>
+                            </div>
+                        </form>
+                        <button className="close-modal" onClick={toggleModalUpdate}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+            <ToastContainer/>
         </>
     );
 }
 
-export default Product
+export default Product;

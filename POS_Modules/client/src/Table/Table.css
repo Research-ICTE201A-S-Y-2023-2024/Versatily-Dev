@@ -12,10 +12,11 @@
     margin: 0.5rem;
     padding: 0.5em;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .add-table {
+    font-family: 'Poppins', sans-serif;
     background-color: var(--light_green);
     border-radius: 10px;
     padding: 12px 18px;
@@ -88,46 +89,32 @@ td{
 }
 
 #bx-trash {
-    margin-left: 5%;
+    margin-left: 10%;
 }
 
-
-
-
-
-/* Modal CSS */
-
-.modal, .overlay {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
+/* Modal btn */
+.btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.overlay {
-    background: rgba(49,49,49,0.8);
+.btn-submit:hover, .btn-cancel:hover{
+    background-color: var(--light_green);
 }
 
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: #F0F3F5;
-    padding: 40px;
-    border-radius: 10px;
-    width: 20%;
-    max-width: 1000px;
-    min-width: 300px;
-    max-height: 100vh;
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.btn-cancel, .btn-submit {
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 1%;
+    cursor: pointer;
 }
-.modal-content::-webkit-scrollbar{
-    display: none;
+
+/* Modal btn */
+
+#bx-edit, #bx-trash{
+    cursor: pointer;
 }

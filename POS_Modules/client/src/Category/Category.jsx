@@ -1,10 +1,11 @@
 import './Category.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const Category = () => {
-
+    const [categories, setCategories] = useState([]);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
     const handleMenuItemClick = (index) => {
@@ -16,6 +17,18 @@ const Category = () => {
         sidebar.classList.toggle('hide');
     };
 
+    useEffect(() => {
+        getAllCategory();
+    }, []);
+
+    const getAllCategory = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/categories');
+            setCategories(response.data);
+        } catch (error) {
+            console.log("Error fetching the category", error);
+        }
+    };
     
     return(
         <>
@@ -61,7 +74,7 @@ const Category = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/product">
+                <Link to="/products">
                     <li className={activeMenuItem === 1 ? 'active' : ''}>
                         <a href="#" onClick={() => handleMenuItemClick(0)}>
                             <i className='bx bx-package'></i>
@@ -137,22 +150,18 @@ const Category = () => {
                 {/* MAIN */}
                 <main>
                     <div className='container'>
-                        
-                        <div className='food-Option'>
-                            <i className='bx bx-bowl-rice'></i>
-                            <h1>Food</h1>
-                        </div>
-
-                        <div className='drinks-Option'>
-                            <i className='bx bx-drink'></i>
-                            <h1>Drinks</h1>
-                        </div>
-                        
-                        <div className='ingridients-Option'>
-                            <i className='bx bx-baguette' ></i>
-                            <h1>Ingredients</h1>
-                        </div>
-
+                        {categories && categories.length > 0 ? (
+                            categories.map((category, index) => (
+                                <div key={index} className='category-row'>
+                                    <img src={category.url} alt="product" width={50} height={50} />
+                                    <h1>{category.name}</h1>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="category-row">
+                                <span>No category found.</span>
+                            </div>
+                        )}
                         <div className='add-Option'>
                             <i className='bx bx-plus'></i>
                         </div>
