@@ -279,7 +279,7 @@ const Table = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <div>
+                                <div className='status_txt'>
                                     <span>Status: </span>
                                     <label>Vacant</label>
                                 </div>
