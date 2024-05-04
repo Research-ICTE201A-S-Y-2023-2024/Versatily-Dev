@@ -144,6 +144,12 @@ td{
     cursor: pointer;
 }
 
+.workbench-btn-container{
+    position: absolute;
+    top: 75%;
+    left: 10%;
+}
+
 /* Action btn */
 
 #bx-edit, #bx-trash{
@@ -198,6 +204,9 @@ td{
     padding-right: 5%;
 }
 
+.status_txt {
+    margin-top: -8px;
+}
 
 /* Modal Content */
 
@@ -211,6 +220,6 @@ td{
     position: absolute;
     top: 40%;
     left: 40%;
-    width: 380px;
-    height: 220px;
+    width: 350px;
+    height: 250px;
 }
