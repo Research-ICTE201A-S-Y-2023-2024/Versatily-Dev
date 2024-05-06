@@ -4,6 +4,7 @@ import OrderPage from './Order/Order.jsx'
 import Product from './Product/Product.jsx'
 import Table from './Table/Table.jsx'
 import Category from './Category/Category.jsx'
+import Home from './Home/Home.jsx';
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Home/>}/>
           <Route path='/order' element={<OrderPage/>}/>
           <Route path='/dashboard' element={<DashboardPage/>}/>
           <Route path='/products' element={<Product/>}/>
