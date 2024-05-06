@@ -5,6 +5,9 @@ import fileUpload from 'express-fileupload';
 import WorkbenchRoutes from './routes/workbenchRoutes.js';
 import ProductRoutes from './routes/productRoutes.js';
 import CategoryRoutes from './routes/categoryRoutes.js';
+import OrderRoute from './routes/orderRoutes.js';
+import TransactionRoute from './routes/transactionRoutes.js';
+import transactionItemsRoute from './routes/itemRoutes.js';
 
 const app = express();
 const PORT = 5000;
@@ -27,6 +30,10 @@ app.use(fileUpload()); // File upload middleware should come after json parsing 
 app.use('/workbench', WorkbenchRoutes);
 app.use('/products', ProductRoutes);
 app.use('/categories', CategoryRoutes)
+app.use('/orders', OrderRoute);
+app.use('/transactions', TransactionRoute);
+app.use('/transactionItems', transactionItemsRoute);
+
 // Start server
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
