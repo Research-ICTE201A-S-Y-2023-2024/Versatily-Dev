@@ -256,3 +256,14 @@ label[for="workbench-unique"] {
 .workbench-btn-container {
     margin-left: 13%;
 }
+
+/* Workbench Form */
+
+.workbench-form {
+    padding: 10px;
+    font-size: large;
+}
+
+.status_txt{
+    padding: 10px;
+}
