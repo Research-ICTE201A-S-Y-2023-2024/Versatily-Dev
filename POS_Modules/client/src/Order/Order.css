@@ -3,7 +3,7 @@
 	--poppins: 'Poppins', sans-serif;
 
     /* Primary Color */
-    --primary-color: rgba(121, 172, 120, 0.299);
+    --primary-color: #79AC78;
 
     /* Second Color */
 	--secondary-color: #BBD5BB;
@@ -279,21 +279,63 @@
 	overflow-y: auto;
 }
 
-.container {
-    display: flex;
+.order-container {
+	display: flex;
     flex-wrap: wrap;
     padding: 20px;
     gap: 10px;
 }
 
-.container .product-row {
+.text-order-container {
+    height: 25%;
+    position: absolute;
+    top: 420%;
+    left: 50%;
+    transform: translate(-50%, -1%);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 10px;
+}
+
+.text-order-container .text-message-order {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+
+.header-order-category {
+	display: flex;
+	justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 10px;
+}
+.header-order-category .category-menu {
+	font-family: var(--poppins);
+	font-weight: 400;
+	font-size: 25px;
+}
+
+.header-order-category #category-cart-icon {
+	background-color: var(--primary-color);
+	font-size: 25px;
+	padding: 10px;
+	color: var(--white);
+	border-radius: 10px;
+}
+
+.order-container .product-row {
     background-color: var(--white);
-    border: solid 1px var(--black);
-    height: 250px;
-    width: 350px;
+    border: solid 1px #D9D9D9;
+    height: 200px;
+    width: 450px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     font-family: var(--poppins), sans-serif;
     border-radius: 25px;
     margin: 8px;
@@ -301,23 +343,112 @@
     cursor: pointer;
 }
 
-.quantity-controls {
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-left: 100px;
+.product-row img {
+	background-attachment: fixed;
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-.quantity-controls button {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+.order-container .text-message-order {
+	background-color: var(--white);
+	border: solid 1px var(--grey);
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.product-info {
+	display: flex;
+	gap: 10px;
+}
+
+.info {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 20px;
+	margin-right: 20px;
+}
+
+.info .product-text-name {
+	width: 150px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-quantity-controls {
+	margin-top: 10px;
+	display: inline-block;
+	border-radius: 10px;
+	background-color: #D9D9D9;
+	padding: 7px;
+}
+
+.order-quantity-controls button {
+	border: none;
+	width: 30px;
+	padding: 7px 10px;
+    background-color: #D9D9D9;
     color: #555;
     font-size: 16px;
-    padding: 5px 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.quantity {
-    margin: 0 10px;
-    font-size: 16px;
+.order-quantity-controls .quantity {
+	background-color: var(--grey);
+	padding: 10px 10px;
+}
+
+.add-cart-container {
+	background-color: var(--white);
+	border: solid 1px #D9D9D9;
+	width: 20px;
+	height: 20px;
+	padding: 25px;
+	display: flex;
+	margin-top: 100px;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+}
+
+.add-cart-container .add-cart-btn {
+	border: none;
+	font-size: 25px;
+	background: none;
+}
+
+.category-order-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 15px;
+}
+
+.category-order-container .category-order-row {
+    background-color: var(--white);
+    border: solid 1px #D9D9D9;
+    height: 50px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	gap: 10px;
+    font-family: var(--poppins), sans-serif;
+    border-radius: 5px;
+    margin: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.category-order-row .category-text-name {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.button-next-page {
+	color: var(--primary-color);
 }
