@@ -238,7 +238,7 @@ const Category = () => {
 
                 {/* MAIN */}
                 <main>
-                    <div className='container'>
+                    <div className='category-container'>
                         {categories && categories.length > 0 ? (
                             categories.map((category, index) => (
                                 <div key={index} className='category-row'>
