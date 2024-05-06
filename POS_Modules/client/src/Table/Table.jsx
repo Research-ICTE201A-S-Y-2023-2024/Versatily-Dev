@@ -4,20 +4,68 @@ import profileImage from '../assets/img/profile.jpg';
 import {Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 
 const Table = () => {
     const [workbench, setWorkbench] = useState([]);
+    const [workbenchID, setWorkbenchID] = useState('');
+    const [status, setStatus] = useState(0);
+
+    const generateWorkbenchID = () => {
+        // Generate a new transactionId with no hyphens
+        const uniqueWorkbenchID = uuidv4().replace(/-/g, '');
+
+        // Update state with generated ID
+        setWorkbenchID(uniqueWorkbenchID);
+    };
+
+    const saveWorkbench = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('workbenchID', workbenchID);
+        formData.append('status', status);
+
+        try {
+            await axios.post('http://localhost:5000/workbench', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            toast.success('Workbench Created Successfully', toastConfig);
+            getAllWorkbench();
+
+            setWorkbenchID();
+            closeModal();
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
 
     const navigate = useNavigate();
 
     const handleOrderClick = (id) => {
         navigate(`/order?workbenchID=${id}`);
-    }
+    }    
     
     const [categories, setCategories] = useState([]);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
-    const [isGridView, setIsGridView] = useState(false);
+    const [isGridView, setIsGridView] = useState(true);
 
     const toggleListView = () => {
         setIsGridView(false);
@@ -38,7 +86,6 @@ const Table = () => {
     };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [email, setEmail] = useState('');
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -207,19 +254,14 @@ const Table = () => {
                                 <div className="workbench-table grid-view">
                                     {workbench.length > 0 ? (
                                         workbench.map((workbenchItem, index) => (
-                                            <div key={index} className="workbench-card">
-                                                <p>Table {workbenchItem.id}</p>
-                                                <p>{workbenchItem.status ? 'Occupied' : 'Vacant'}</p>
-                                                {/* Pinalitan ko from bx bx-cart to AddToCart */}
-                                                <button className='AddToCart' onClick={() => handleOrderClick(workbenchItem.id)}>
-                                                    <i id='add-to-cart' className='bx bx-cart-add'/>
-                                                    Add Order
-                                                </button>
+                                            <div key={index} className="workbench-card" onClick={() => handleOrderClick(workbenchItem.id)}>
+                                                <h1 className='table-number'>Table {workbenchItem.id}</h1>
+                                                <p className='table-status'>{workbenchItem.status ? 'Occupied' : 'Vacant'}</p>
                                             </div>
                                         ))
                                     ) : (
                                         <div className="workbench-card">
-                                            <span>No workbench found.</span>
+                                            <span className='text-no-workbench' >No workbench found.</span>
                                         </div>
                                     )}
                                 </div>
@@ -266,28 +308,23 @@ const Table = () => {
             {/* CONTENT */}
             {isModalOpen && (
                 <div className="modal">
-                    <div className="overlay"></div>
-                        <div className="modal-workbench">
-                            <h2 className="add-table-t">Add Table</h2>
-                            <hr></hr>
-                            <form className='form'>
-                                <label htmlFor="email">Email: </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <div className='status_txt'>
-                                    <span>Status: </span>
-                                    <label>Vacant</label>
-                                </div>
-                                
-                                <div className='workbench-btn-container'>
-                                    <button type='button' className='workbench-btn-cancel' onClick={closeModal}>Cancel</button>
-                                    <button type='submit' className='workbench-btn-submit'>Submit</button>
-                                </div>
+                <div className="workbench-overlay"></div>
+                    <div className="modal-workbench">
+                        <h2 className="add-table-t">Add Table</h2>
+                        <hr></hr>
+                        <form className='form' onSubmit={saveWorkbench}>
+                            <label htmlFor="workbench-unique">Workbench Unique ID</label>
+                            <input type='text' id='unique-workbench-id' name='unique-workbench-id' value={workbenchID} disabled />
+                            <button id="btn-guw" type='button' onClick={generateWorkbenchID}>Generate Unique Workbench ID</button>
+                            <div className='status_txt'>
+                                <span>Status: </span>
+                                <label>{status === 0 ? "Vacant" : "Occupied"}</label>
+                            </div>
+                                                
+                            <div className='workbench-btn-container'>
+                                <button type='button' className='workbench-btn-cancel' onClick={closeModal}>Cancel</button>
+                                <button type='submit' className='workbench-btn-submit'>Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>
