@@ -11,6 +11,13 @@
 	--dark: #342E37;
 }
 
+/* App-content CSS */
+.app-content-actions-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    float: right;
+}
 
 .workbench-container {
     border-radius: 10px;
@@ -24,6 +31,7 @@
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-green);
     border-radius: 10px;
+    color: var(--white);
     padding: 12px 18px;
     font-weight: bold;
     text-align: center;
@@ -70,21 +78,16 @@ table {
 td, th{
     text-align: center;
     padding: 0.7rem;
-    
 }
 
 th{
     padding-bottom: 10px;
-    background-color: var(--dark-grey);
+    background-color: var(--green);
+    color: var(--white);
 }
 
 td{
     border-collapse: collapse;
-    background-color: var(--light-green);
-}
-
-.td-id {
-    font-weight: bold;
 }
 
 /* ICONS */
@@ -99,7 +102,7 @@ td{
 
 .action-button:focus, .action-button.active {
     outline: none;
-    color: var(--black);
+    color: var(--white);
     border-color: var(--light-green);
     box-shadow: 0 0 5px var(--light-green);
 }
@@ -112,7 +115,7 @@ td{
     border: 1px solid var(--light-green);
     display: flex;
     align-items: center;
-    color: var(--black);
+    color: var(--white);
     font-size: 14px;
     margin-left: 8px;
     cursor: pointer;
@@ -160,7 +163,7 @@ td{
 .workbench-table.grid-view {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    grid-gap: 2px;
+    gap: 10px;
 }
 
 .workbench-table.grid-view .workbench-card {
@@ -168,7 +171,6 @@ td{
     border: 1px solid var(--dark-grey);
     width: 150px;
     height: 150px;
-    text-align: center;
     font-size: 12px;
     border-radius: 10px;
     padding: 15px;
@@ -179,14 +181,21 @@ td{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.workbench-table.grid-view .workbench-card img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
+.workbench-card .table-number {
+    font-size: 18px;
+    margin: 0;
+    color: var(--grey);
 }
 
-.workbench-table.grid-view .workbench-card h1 {
-    font-size: 16px;
+.workbench-card .table-status {
+    font-size: 12px;
+    margin: 0;
+    color: var(--grey);
+}
+
+.workbench-card .text-no-workbench {
+    font-size: 12px;
+    color: var(--grey);
     margin: 0;
 }
 /* Add to Cart */
@@ -222,4 +231,28 @@ td{
     left: 40%;
     width: 350px;
     height: 250px;
+}
+
+.workbench-overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background: rgba(49,49,49,0.8);
+}    
+
+label[for="workbench-unique"] {
+    font-size: 100%;
+    line-height: 0.9;
+}
+#btn-guw {
+    text-align: left;
+    font-size: 70%;
+}
+
+.workbench-btn-container {
+    margin-left: 13%;
 }
