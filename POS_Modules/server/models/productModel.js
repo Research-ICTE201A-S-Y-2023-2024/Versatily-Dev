@@ -47,7 +47,7 @@ const Product = database.define('product', {
     freezeTableName: true
 });
 
-(async() => {
+(async () => {
     await database.sync();
 })();
 
