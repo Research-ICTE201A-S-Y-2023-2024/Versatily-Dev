@@ -312,7 +312,7 @@ const Table = () => {
                     <div className="modal-workbench">
                         <h2 className="add-table-t">Add Table</h2>
                         <hr></hr>
-                        <form className='form' onSubmit={saveWorkbench}>
+                        <form className='workbench-form' onSubmit={saveWorkbench}>
                             <label htmlFor="workbench-unique">Workbench Unique ID</label>
                             <input type='text' id='unique-workbench-id' name='unique-workbench-id' value={workbenchID} disabled />
                             <button id="btn-guw" type='button' onClick={generateWorkbenchID}>Generate Unique Workbench ID</button>
