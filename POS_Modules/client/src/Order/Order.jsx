@@ -2,18 +2,32 @@ import './Order.css';
 import profileImage from '../assets/img/profile.jpg';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
+import CartSidebar from '../components/CartSideBar/CartSideBar.jsx';
 
 const Order = () => {
 
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const workbenchID = queryParams.get('workbenchID');
     const [workbench, setWorkbench] = useState(null);
+    const [cartItems, setCartItems] = useState([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
+    const [filteredProducts, setFilteredProducts] = useState(products);
+
+    const filterProducts = (category) => {
+        const filtered = products.filter(product => product.category === category);
+        setFilteredProducts(filtered);
+    };
 
     useEffect(() => {
         getAllProducts();
+        getAllCategories();
     }, [])
 
     const getAllProducts = async () => {
@@ -22,6 +36,15 @@ const Order = () => {
             setProducts(response.data);
         } catch (error) {
             console.error("Error fetching products");
+        }
+    }
+
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/categories');
+            setCategories(response.data);
+        } catch (error) {
+            console.error("Error fetching categories");
         }
     }
 
@@ -57,6 +80,79 @@ const Order = () => {
         // Toggle sidebar
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hide');
+    };
+
+    // Function to remove a product from the cart
+    const removeFromCart = (index) => {
+        const updatedCart = [...cartItems];
+        updatedCart.splice(index, 1);
+        setCartItems(updatedCart);
+    };
+
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
+
+    const updateQuantity = (index, quantity) => {
+        setIsCartOpen(true);
+        if (quantity >= 0 && index >= 0 && index < cartItems.length) {
+            const updatedCartItems = cartItems.map((item, idx) => {
+                if (idx === index) {
+                    return { ...item, quantity: quantity };
+                }
+                return item;
+            });
+            setCartItems(updatedCartItems);
+        }
+    };
+    
+    const addToCart = (product) => {
+        if (product.outOfStock) {
+            toast.error('This product is currently disabled and cannot be added to the cart.', toastConfig);
+            return;
+        }
+    
+        const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
+    
+        if (existingItemIndex !== -1) {
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[existingItemIndex].quantity += 1;
+            setCartItems(updatedCartItems);
+        } else {
+            setCartItems(prevCartItems => [...prevCartItems, { ...product, quantity: 1 }]);
+        }
+    
+        setIsCartOpen(true);
+    };
+    
+    const incrementQuantity = (productID) => {
+        setIsCartOpen(true);
+        // Find the product index in cartItems array
+        const productIndex = cartItems.findIndex(item => item.id === productID);
+        if (productIndex !== -1) {
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[productIndex].quantity += 1;
+            setCartItems(updatedCartItems);
+        }
+    };
+    
+    // Modify decrementQuantity function to accept productID
+    const decrementQuantity = (productID) => {
+        setIsCartOpen(true);
+        // Find the product index in cartItems array
+        const productIndex = cartItems.findIndex(item => item.id === productID);
+        if (productIndex !== -1 && cartItems[productIndex].quantity > 0) {
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[productIndex].quantity -= 1;
+            setCartItems(updatedCartItems);
+        }
     };
 
     return(
@@ -180,42 +276,91 @@ const Order = () => {
                 <main>
                     {workbench ? (
                             <>
-                                <h2>Workbench Details</h2>
+                                {/* <h2>Workbench Details</h2>
                                 <p>ID: {workbench.id}</p>
                                 <p>Workbench ID: {workbench.workbenchID}</p>
-                                <p>Status: {workbench.status ? 'Occupied' : 'Vacant'}</p>
+                                <p>Status: {workbench.status ? 'Occupied' : 'Vacant'}</p> */}
+                                <div className="header-order-category">
+                                    <h1 className='category-menu'>Menu</h1>
+                                    <i id='category-cart-icon' className='bx bx-cart' onClick={() => setIsCartOpen(true)}></i>
+                                </div>
+                                <div className="category-order-container">
+                                    {categories.length > 0 ? (
+                                        categories.map((category, index) => (
+                                            <div key={index} className="category-order-row" onClick={() => filterProducts(category.name)}>
+                                                <img src={category.url} alt={category.name} width={25} height={25} />
+                                                <p className='category-text-name'>{category.name}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="category-order-row">
+                                            No category found
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="order-container">
+                                    {filteredProducts.length > 0 ? (
+                                        filteredProducts.map((product, index) => (
+                                            <div key={index} className='product-row'>
+                                                <div className="product-info">
+                                                    <img src={product.url} alt="product" width={100} height={100} />
+                                                    <div className="info">
+                                                        <h2 className='product-text-name'>{product.name}</h2>
+                                                        <h3 className='product-text-price'>₱{product.price}</h3>
+                                                        <div className="order-quantity-controls">
+                                                            <button onClick={() => decrementQuantity(product.id)}> - </button>
+                                                                <span className="quantity">{cartItems.find(item => item.id === product.id)?.quantity ?? 0}</span>
+                                                            <button onClick={() => { incrementQuantity(product.id); addToCart(product); }}> + </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='add-cart-container' onClick={() => addToCart(product)}>
+                                                    <button className='add-cart-btn'>
+                                                        <i className='bx bx-cart'></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="product-row">
+                                            <span>No products found.</span>
+                                        </div>
+                                    )}
+                                </div>
                             </>
                         ) : (
-                            <p>Loading...</p>
-                        )}
-                    <div className="container">
-                        {products.length > 0 ? (
-                            products.map((product, index) => (
-                                <div key={index} className='product-row'>
-                                    <img src={product.url} alt="product" width={120} height={120} />
-                                    <div className="info">
-                                        <h2>{product.name}</h2>
-                                        <h3>₱{product.price}</h3>
-                                        <div className="quantity-controls">
-                                            <button>-</button>
-                                                <span className="quantity">0</span>
-                                            <button>+</button>
+                            <div className="text-order-container">
+                                <div className="text-message-order">
+                                    To order a product, please click on the workbench table first.
+                                    <br />
+                                    <br />
+                                    <Link to={'http://localhost:3000/workbench'} >
+                                        <div className="button-next-page">
+                                            Click me to navigate on Workbench <i className='bx bx-right-arrow-alt'></i>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
-                            ))
-                        ) : (
-                            <div className="product-row">
-                                <span>No products found.</span>
                             </div>
                         )}
-                    </div>
                 </main>
                 {/* MAIN */}
             </section>
             {/* CONTENT */}
+            {isCartOpen && (
+                <CartSidebar
+                    workbenchUnique={workbench.workbenchID}
+                    workbenchNo={workbench.id}
+                    cartItems={cartItems}
+                    removeFromCart={removeFromCart}
+                    updateQuantity={updateQuantity}
+                    isOpen={isCartOpen}
+                    setIsOpen={setIsCartOpen}
+                />
+            )}
+            <ToastContainer/>
         </>
     );
 }
 
-export default Order;
+export default Order
