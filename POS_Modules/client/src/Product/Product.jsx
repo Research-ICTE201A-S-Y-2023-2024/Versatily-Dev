@@ -24,11 +24,45 @@ const Product = () => {
     const [selectedProductId, setSelectedProductId] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('All Categories');
+    const [selectedStatus, setSelectedStatus] = useState('All Status');
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    // Filter products when category or status changes
+    useEffect(() => {
+        filterProducts(selectedCategory, selectedStatus);
+    }, [selectedCategory, selectedStatus]);
+
+    // Function to filter products based on category and status
+    const filterProducts = (category, status) => {
+        let filtered = [...products];
+    
+        if (category !== "All Categories") {
+            filtered = filtered.filter(product => product.category === category);
+        }
+        
+        if (status !== "All Status") {
+            filtered = filtered.filter(product => product.outOfStock === (status === "Disabled"));
+        }
+        
+        setFilteredProducts(filtered);
+    };
+
+    // Handler for category change in filter
+    const handleCategoryChange = (e) => {
+        const category = e.target.value;
+        setSelectedCategory(category);
+    };
+    
+    // Handler for status change in filter
+    const handleStatusChange = (e) => {
+        const status = e.target.value;
+        setSelectedStatus(status);
+    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
-
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -77,6 +111,7 @@ const Product = () => {
         try {
             const response = await axios.get('http://localhost:5000/products');
             setProducts(response.data);
+            setFilteredProducts(response.data)
         } catch (error) {
             console.error("Error fetching the products", error);
         }
@@ -360,8 +395,9 @@ const Product = () => {
                                     {isOpen && (
                                         <div className="filter-menu active">
                                         <label>Category</label>
-                                        <select>
+                                        <select value={selectedCategory} onChange={handleCategoryChange}>
                                             <option value="" disabled>Select category</option>
+                                            <option value="All Categories">All Categories</option>
                                                 {categories && categories.length > 0 ? (
                                                     categories.map((category, index) => (
                                                         <option key={index} value={category.name}>{category.name}</option>
@@ -371,7 +407,7 @@ const Product = () => {
                                                 )}
                                         </select>
                                         <label>Status</label>
-                                        <select>
+                                        <select value={selectedStatus} onChange={handleStatusChange}>
                                             <option value="All Status">All Status</option>
                                             <option value="Active">Active</option>
                                             <option value="Disabled">Disabled</option>
@@ -380,39 +416,32 @@ const Product = () => {
                                     )}
                                 </div>
                             </div>
-                            <button className='action-button' title="List View">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                            </button>
-                            <button className='action-button' title="Grid View">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                            </button>
                         </div>
                         <div className="product-table">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>URL</th>
-                                        <th>Image</th>
-                                        <th>Name</th>
+                                        <th>Item</th>
+                                        <th>Status</th>
                                         <th>Category</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
-                                        <th>OutOfStock</th>
                                         <th>CreateDate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products.length > 0 ? (
-                                        products.map((product, index) => (
+                                    {filteredProducts.length > 0 ? (
+                                        filteredProducts.map((product, index) => (
                                             <tr key={index}>
-                                                <td><img src={product.url} alt="product" width={50} height={50} /></td>
-                                                <td>{product.image}</td>
-                                                <td>{product.name}</td>
+                                                <td className='product-item'>
+                                                    <img src={product.url} alt="product" width={50} height={50} />
+                                                    <p className='text-paragraph'>{product.name}</p>
+                                                </td>
+                                                <td>{product.outOfStock ? 'Disabled' : 'Available'}</td>
                                                 <td>{product.category}</td>
                                                 <td>{product.price}</td>
                                                 <td>{product.quantity}</td>
-                                                <td>{product.outOfStock ? 'Disabled' : 'Available'}</td>
                                                 <td>{formatDate(product.createdAt)}</td>
                                                 <td>
                                                     <i id="bx-edit" onClick={() => toggleModalUpdate(product.id)} className='bx bx-edit' ></i> 
@@ -440,12 +469,13 @@ const Product = () => {
                         <h1>Add Product</h1>
                         <hr></hr>
                         <form className='form' onSubmit={saveProduct}>
-                            <div>
+                        <div className='form-grid'>
+                            <div className='product-name-price'>
                                 <label>Product Name<span>*</span></label> <br></br>
-                                <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Type product name' required/>
+                                <input className='input' type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Ex. Big Mac' required/>
                                 <h5 >Validation Text</h5>
                                 <label>Price<span>*</span></label> <br></br>
-                                <input className='input' type='number' value={price} onChange={(e) => setPrice(e.target.value)} placeholder='₱500' required/>
+                                <input className='input' type='number' value={price} onChange={(e) => setPrice(e.target.value)} placeholder='₱0 - 9999' required/>
                                 <h5 >Validation Text</h5>
                             </div>
                             <div>
@@ -462,19 +492,17 @@ const Product = () => {
                                 </select>
                                 <h5 >Validation Text</h5>
                                 <label>Stock<span>*</span></label> <br></br>
-                                <input className='input' type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder='Type product quantity' required/>
+                                <input className='input' type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder='Ex. 0 - 999' required/>
                                 <h5 >Validation Text</h5>
                             </div>
-                            <div>
+                        </div>
+                            <div className='product-description'>
                                 <label>Description<span>*</span></label> <br></br>
-                                <textarea className='input' value={description} onChange={(e) => setDescription(e.target.value)} rows={4} cols={50} placeholder='Enter the description' required/>
+                                <textarea className='input' value={description} onChange={(e) => setDescription(e.target.value)} rows={4} cols={70} placeholder='Enter the description' required/>
                             </div>
-                            <div>
-                                {/* Empty Div */}
-                            </div>
-                            <div>
-                                <label>Product Image</label> <br />
-                                <input type='file' className='input' onChange={loadImage} required />
+                            <div className='product-image'>
+                                <label>Attachment</label><span>*</span> <br />
+                                <input type='file' className='attachment-input' onChange={loadImage} required />
                             </div>
                             <br></br>
                             <div className='btn-container'>
@@ -552,7 +580,7 @@ const Product = () => {
                             <br></br>
                             <br></br>
                             <div className='product-btn-container'>
-                                <button type='button' className='product-btn-delete' onClick={toggleModalUpdate}>Cancel</button>
+                                <button type='button' className='product-btn-cancel' onClick={toggleModalUpdate}>Cancel</button>
                                 <button type='submit' className='product-btn-submit'>Update</button>
                             </div>
                         </form>
