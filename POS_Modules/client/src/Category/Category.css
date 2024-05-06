@@ -11,16 +11,16 @@
 	--dark: #342E37;
 }
 
-.container {
+.category-container {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
     gap: 10px;
 }
 
-.container .category-row {
+.category-container .category-row {
     background-color: var(--white);
-    border: solid 1px var(--black);
+    border: solid 1px #d5d5d5;
     height: 250px;
     width: 250px;
     display: flex;
@@ -29,11 +29,18 @@
     font-family: var(--poppins), sans-serif;
     border-radius: 25px;
     margin: 8px;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
 }
 
-.container .add-Option {
+.category-row img {
+    background-attachment: fixed;
+    width: 50px;
+    height: 50px;
+    padding-right: 10px;
+}
+
+.category-container .add-Option {
     font-size: 100px;
     background-color: var(--white);
     border: dashed 3px;
