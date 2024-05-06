@@ -66,6 +66,8 @@ export const saveProduct = async (req, res) => {
     }
 
     const url = `${req.protocol}://${req.get("host")}/productImages/${fileName}`;
+    // const url = `${req.protocol}://ef96a2c69c75dae0d7981c87d36b65a3.serveo.net/productImages/${fileName}`;
+
 
     file.mv(path.join(uploadDir, fileName), async (err) => {
         if (err) {
@@ -183,7 +185,7 @@ export const deleteProduct = async (req, res) => {
     if (!product) return res.status(404).json({ msg: "No Data Found" });
 
     try {
-        const filepath = `./public/images/${product.image}`;
+        const filepath = `./public/productImages/${product.image}`;
         fs.unlinkSync(filepath);
         await Product.destroy({
             where: {
@@ -193,6 +195,6 @@ export const deleteProduct = async (req, res) => {
         res.status(200).json({ msg: "Product deleted successfully" });
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" + error });
     }
 };
