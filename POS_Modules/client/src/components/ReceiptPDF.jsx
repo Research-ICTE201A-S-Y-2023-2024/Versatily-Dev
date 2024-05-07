@@ -56,8 +56,6 @@ const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
                 total: item.price * item.quantity
             }));
     
-            generatePDF(transactionData, itemData);
-    
             const response = await axios.post('http://localhost:5000/orders', {
                 transactionData,
                 itemData
@@ -65,7 +63,7 @@ const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
     
             if (response.data.transactionId) {
                 toast.success('Transaction and items saved successfully.', toastConfig);
-    
+                generatePDF(transactionData, itemData);
                 window.location.reload();
             } else {
                 console.error('Failed to save transaction and items.');
@@ -84,7 +82,6 @@ const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
         });
 
         let posY = 50;
-        doc.setFont('Poppins', "bold", 800);
 
         // Draw the main title
         const text = 'Versatility';

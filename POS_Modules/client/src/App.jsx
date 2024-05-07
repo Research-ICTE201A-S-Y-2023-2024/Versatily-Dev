@@ -17,7 +17,7 @@ function App() {
           <Route path='/order' element={<OrderPage/>}/>
           <Route path='/dashboard' element={<DashboardPage/>}/>
           <Route path='/products' element={<Product/>}/>
-          <Route path='/workbench' element={<Table/>}/>
+          <Route path='/kiosk' element={<Table/>}/>
           <Route path='/categories' element={<Category/>}/>
         </Routes>
       </BrowserRouter>

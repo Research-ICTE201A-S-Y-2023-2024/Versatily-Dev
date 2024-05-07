@@ -49,7 +49,7 @@ const CartSidebar = ({ workbenchUnique , workbenchNo, cartItems, removeFromCart,
                 </div>
                 <hr className='break-line' />
                 <div className="overall-total-container">
-                    <div className="overall-total-text">Overall Total: </div>
+                    <div className="overall-total-text">Total Price: </div>
                     <div className="overall-total-money"><span>₱</span> {overallTotal.toFixed(2)}</div>
                 </div>
                 <button className='generate-summary' onClick={handleGeneratePDF}>Generate a Receipt Preview</button>
