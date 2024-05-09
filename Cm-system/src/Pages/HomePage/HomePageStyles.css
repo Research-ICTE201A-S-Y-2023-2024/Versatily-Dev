@@ -1,0 +1,90 @@
+/* Base styles for the body */
+body {
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styles for the image container */
+.image-container {
+  height: 300px; 
+background-color: #F0B67F;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; 
+  text-align: center;
+}
+
+/* Styles for the main product container */
+.product-container {
+  background-color: #FE5F55;
+  width: 1000px;
+  max-width: 950px;
+  min-height: 480px;
+  padding: 3px;
+  display: flex;
+  gap: 0.5em;
+}
+
+/* Styles for the left section of the product container */
+.container-left {
+  flex: 2;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+/* Styles for the individual product row */
+.product-row {
+  width: 600px; 
+  height: 300px; 
+  align-self: center;
+}
+
+/* Styles for subheading elements */
+.subheading {
+  color: yellow;
+}
+
+/* Styles for the individual product containers */
+.cont {
+  flex: 1;
+  border: 2px solid blue;
+  border-radius: 1em;
+}
+
+/* Styles for the top ranking products row */
+.topRankingProducts-row {
+  flex: 1;
+  border: 2px solid orange;
+  border-radius: 1em;
+}
+
+/* Styles for the bottom products row */
+.bottomproducts-row {
+  display: flex;
+  border: none;
+  gap: 1em;
+}
+
+/* Styles for the left side of the bottom products row */
+.cont-left {
+  flex: 1;
+  border: 2px solid yellow;
+  border-radius: 1.5em;
+}
+
+/* Styles for the right section of the product container */
+.container-right {
+  flex: 1;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}

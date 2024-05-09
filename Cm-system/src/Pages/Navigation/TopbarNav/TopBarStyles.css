@@ -1,0 +1,82 @@
+/* Top Bar Styles */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #24292e;
+  color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.top-bar nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.sections {
+  display: flex;
+  align-items: center;
+}
+
+.sections li {
+  position: relative;
+  list-style: none;
+  margin: 0;
+}
+
+.sections li + li {
+  margin-left: 20px;
+}
+
+.sections a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 15px 20px;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.sections a.active {
+  color: #cfd8dc;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 150px;
+  background: #111;
+  border-radius: 5px;
+  display: none;
+}
+
+.dropdown li {
+  border: none;
+}
+
+.dropdown a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.dropdown a:hover {
+  color: #cfd8dc;
+}
+
+.dropdown.show {
+  display: block;
+}
