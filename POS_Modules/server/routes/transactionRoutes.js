@@ -1,9 +1,10 @@
 import express from 'express';
-import {getAllTransaction, getTableTransactionsItems} from '../controllers/transactionController.js';
+import {getAllTransaction} from '../controllers/transactionController.js';
+import {savePayment} from '../controllers/paymentController.js';
 
 const router = express.Router();
 
 router.get('/', getAllTransaction);
-router.get('/:transactionId', getTableTransactionsItems);
+router.patch('/:id', savePayment);
 
 export default router;

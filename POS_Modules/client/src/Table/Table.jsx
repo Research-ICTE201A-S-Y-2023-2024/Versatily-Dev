@@ -5,13 +5,32 @@ import {Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Table = () => {
     const [workbench, setWorkbench] = useState([]);
     const [workbenchID, setWorkbenchID] = useState('');
-    const [status, setStatus] = useState(0);
+    const [status] = useState(0);
+    const [payment, setPayment] = useState('');
+    const [modalCreate, setModalCreate] = useState(false);
+    const [workbenchIDModal, setWorkbenchIDModal] = useState(null);
 
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
+
+    const toggleModalCreate = (id) => {
+        setModalCreate(!modalCreate);
+        setWorkbenchIDModal(id);
+    };
+    
     const generateWorkbenchID = () => {
         // Generate a new transactionId with no hyphens
         const uniqueWorkbenchID = uuidv4().replace(/-/g, '');
@@ -29,7 +48,7 @@ const Table = () => {
         formData.append('status', status);
 
         try {
-            await axios.post('http://localhost:5000/workbench', formData, {
+            await axios.post('http://localhost:5000/kiosk', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
@@ -45,24 +64,16 @@ const Table = () => {
         }
     };
 
-    const toastConfig = {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    };
-
     const navigate = useNavigate();
 
     const handleOrderClick = (id) => {
         navigate(`/order?workbenchID=${id}`);
-    }    
+    };
+
+    // const handleWorkbenchID = (id) => {
+    //     navigate(`/kiosk?transactionID=${id}`);
+    // }
     
-    const [categories, setCategories] = useState([]);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
 
     const [isGridView, setIsGridView] = useState(true);
@@ -96,26 +107,43 @@ const Table = () => {
 
     useEffect(() => {
         getAllWorkbench();
-        getAllCategory();
     }, [])
 
     const getAllWorkbench = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/workbench');
+            const response = await axios.get('http://localhost:5000/kiosk');
             setWorkbench(response.data);
         } catch (error) {
             console.error("Error fetching the workbenchs", error);
         }
     };
 
-    const getAllCategory = async() => {
+    const handleSubmit = async (event, tableID) => {
+        event.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('id', tableID);
+        formData.append('payment', payment);
+    
         try {
-            const response = await axios.get('http://localhost:5000/categories');
-            setCategories(response.data);
+            const response = await axios.patch(`http://localhost:5000/transactions/${tableID}`, 
+            formData, 
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+            if (response.status === 201) {
+                console.log("Transaction Updated Successfully");
+                // close modal
+                toast.success('Payment Successfully Paid', toastConfig);
+                toggleModalCreate();
+            }
         } catch (error) {
-            console.error("Error fetching the categories", error);
+            console.error("Error while updating transaction:", error.message);
         }
-    }
+    };
     
     return(
         <>
@@ -238,7 +266,7 @@ const Table = () => {
                 <main>
                     <div className="workbench-container">
                         <div className="add-table-container">
-                            <button className='add-table' onClick={openModal}>Add Table</button> 
+                            <button className='add-table' onClick={() => openModal()}>Add Table</button> 
                         </div>
 
                         <div className="app-content-actions-wrapper">
@@ -254,9 +282,14 @@ const Table = () => {
                                 <div className="workbench-table grid-view">
                                     {workbench.length > 0 ? (
                                         workbench.map((workbenchItem, index) => (
-                                            <div key={index} className="workbench-card" onClick={() => handleOrderClick(workbenchItem.id)}>
+                                            <div key={index} className="workbench-card" onClick={() => {    
+                                                handleOrderClick(workbenchItem.id);
+                                            }}>
                                                 <h1 className='table-number'>Table {workbenchItem.id}</h1>
                                                 <p className='table-status'>{workbenchItem.status ? 'Occupied' : 'Vacant'}</p>
+                                                {workbenchItem.status && (
+                                                    <button className="bills-button" type='button' onClick={(e) => { e.stopPropagation(); toggleModalCreate(workbenchItem.id); }}>Bills Out</button>
+                                                )}
                                             </div>
                                         ))
                                     ) : (
@@ -297,8 +330,6 @@ const Table = () => {
                                 </div>
                             )}
                         </div>
-
-
                     </div>
                 </main>
                 {/* MAIN */}
@@ -329,8 +360,27 @@ const Table = () => {
                     </div>
                 </div>
             )}
+            {modalCreate && (
+                <div className="modal">
+                    <div className="payment-overlay"></div>
+                    <div className="modal-payment">
+                        <h1 className='mode-payment-table-head'>Table # {workbenchIDModal}</h1>
+                        <h2 className="model-payment-head">Add Payment</h2>
+                        <hr></hr>
+                        <form className='payment-form' onSubmit={(event) => handleSubmit(event, workbenchIDModal)}>
+                            <label htmlFor="payment-unique">Payment</label>
+                            <input type='number' placeholder='EX. 0 - 999' id='payment-id' name='payment-id' value={payment} onChange={(e) => setPayment(e.target.value)} required />
+                            <div className='payment-btn-container'>
+                                <button type='button' className='payment-btn-cancel' onClick={toggleModalCreate}>Cancel</button>
+                                <button type='submit' className='payment-btn-submit'>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+            <ToastContainer/>
         </>
     );
 }
 
-export default Table
+export default Table;

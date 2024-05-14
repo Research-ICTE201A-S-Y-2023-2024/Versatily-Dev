@@ -18,6 +18,10 @@ const Transaction = database.define('transaction', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    payment: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
     createdDate: {
         type: DataTypes.DATE,
         allowNull: false,

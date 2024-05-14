@@ -58,7 +58,7 @@ const Order = () => {
 
     const fetchWorkbenchDetails = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:5000/workbench/${id}`);
+            const response = await axios.get(`http://localhost:5000/kiosk/${id}`);
             
             if (response.status < 200 || response.status >= 300) {
                 throw new Error('Failed to fetch workbench details');
@@ -332,12 +332,12 @@ const Order = () => {
                         ) : (
                             <div className="text-order-container">
                                 <div className="text-message-order">
-                                    To order a product, please click on the workbench table first.
+                                    To order a product, please click on the kiosk table first.
                                     <br />
                                     <br />
-                                    <Link to={'http://localhost:3000/workbench'} >
+                                    <Link to={'http://localhost:3000/kiosk'} >
                                         <div className="button-next-page">
-                                            Click me to navigate on Workbench <i className='bx bx-right-arrow-alt'></i>
+                                            Click me to navigate on kiosk <i className='bx bx-right-arrow-alt'></i>
                                         </div>
                                     </Link>
                                 </div>

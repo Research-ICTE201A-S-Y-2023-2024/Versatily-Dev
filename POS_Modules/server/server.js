@@ -27,7 +27,7 @@ app.use(express.static("public"));
 app.use(fileUpload()); // File upload middleware should come after json parsing and before your routes.
 
 // Routes
-app.use('/workbench', WorkbenchRoutes);
+app.use('/kiosk', WorkbenchRoutes);
 app.use('/products', ProductRoutes);
 app.use('/categories', CategoryRoutes)
 app.use('/orders', OrderRoute);

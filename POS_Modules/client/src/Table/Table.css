@@ -193,6 +193,26 @@ td{
     color: var(--grey);
 }
 
+.workbench-card {
+    position: relative;
+}
+
+.workbench-card .bills-button {
+    font-size: 12px;
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: var(--green);
+    border: none;
+    border-radius: 5px;
+    color: var(--light);
+    padding: 10px 50px 10px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
 .workbench-card .text-no-workbench {
     font-size: 12px;
     color: var(--grey);
@@ -266,4 +286,60 @@ label[for="workbench-unique"] {
 
 .status_txt{
     padding: 10px;
+}
+
+/* Modal CSS */
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    display: block;
+    margin: 100px auto 10px;
+    font-size: 18px;
+    float: right;
+}
+
+.modal, .payment-overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 5%;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.payment-overlay {
+    background: rgba(49,49,49,0.8);
+}
+
+.modal-payment {
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    min-width: 300px;
+    max-height: 550px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.close-modal {
+    background: none;
+    border:none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
 }

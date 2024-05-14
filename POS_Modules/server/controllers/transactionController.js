@@ -6,7 +6,7 @@ import Workbench from '../models/workbenchModel.js';
 // Controller function to get all transactions
 export const getAllTransaction = async (req, res) => {
     try {
-        const workbench = await Workbench.findOne();
+        const workbench = await Workbench.findAll();
         const transactions = await Transaction.findAll();
         res.json({workbench, transactions});
     } catch (error) {
