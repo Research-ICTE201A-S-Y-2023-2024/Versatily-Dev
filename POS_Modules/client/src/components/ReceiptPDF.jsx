@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
     const tableNo = workbenchNo;
@@ -11,6 +12,7 @@ const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
     const receiptRef = useRef(null);
     const [overallTotal, setOverallTotal] = useState(0);
     const [transactionId, setTransactionId] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         let total = 0;
@@ -62,9 +64,14 @@ const ReceiptPDF = ({ workbenchUnique, workbenchNo, cartItems }) => {
             });
     
             if (response.data.transactionId) {
+                // Update workbench status
+            await axios.patch(`http://localhost:5000/kiosk/${tableNo}`, { status: true });
                 toast.success('Transaction and items saved successfully.', toastConfig);
-                generatePDF(transactionData, itemData);
-                window.location.reload();
+
+                
+                // generatePDF(transactionData, itemData);
+
+                navigate('/kiosk');
             } else {
                 console.error('Failed to save transaction and items.');
             }
