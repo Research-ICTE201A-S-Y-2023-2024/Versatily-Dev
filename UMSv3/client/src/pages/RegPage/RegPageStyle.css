@@ -1,0 +1,272 @@
+.ums-rp-main{
+    background-color: var(--primary);
+    height: 100vh;
+    width: 100vw;
+}
+
+.ToastContainer{
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.ums-rp-registration-section{
+    background-color: var(--tertiary);
+    width: 50%;
+    height: 65%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 30px;
+}
+
+.ums-rp-registration-section-overlay{
+    background-color: var(--tertiary);
+    height: 100%;
+    width: 65%;
+    border-radius: 30px 40px 40px 30px;
+    z-index: 2;
+    position: absolute;
+}
+
+.ums-rp-login-dir-overlay{
+    background-color: var(--secondary);
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    z-index: 1;
+    position: absolute;
+}
+
+.ums-rp-registration-section-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+}
+
+.ums-rp-registration-form-section{
+    height: 100%;
+    width: 65%;
+    z-index: 4;
+}
+
+.ums-rp-registration-form{
+    height: 80%;
+    width: 80%;
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+
+.ums-rp-registration-form-header-section{
+    width: 100%;
+    height: 22.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.ums-rp-registration-form-header-section span{
+    width: max-content;
+    height: max-content;
+    font-size: 24px;
+}
+
+.ums-rp-registration-form-container{
+    width: 100%;
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.ums-rp-registration-form-container-left-section{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.ums-rp-registration-form-container-right-section{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.ums-rp-registration-form-input-section{
+    height: 35%;
+    width: 100%;
+}
+
+.ums-rp-registration-form-input-label{
+    height: 25%;
+    width: 100%;
+    font-size: 14px;
+    color: var(--stress);
+    display: flex;
+    align-items: center;
+}
+
+.ums-rp-registration-form-input-label i{
+    font-size: 16px;
+    height: max-content;
+    width: max-content;
+    display: flex;
+    padding-left: 2.5%;
+}
+
+.ums-rp-registration-form-input{
+    height: 75%;
+    width: 100%;
+}
+
+.ums-rp-registration-form-input input{
+    height: 50%;
+    width: 95%;
+    border-radius: 5px;
+    background-color: var(--input-background);
+    border: 1px solid var(--input-stroke);
+    padding-left: 1.5%;
+    margin-top: 6.5%;
+}
+
+.ums-rp-registration-button-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ums-rp-registration-button{
+    height: 50%;
+    width: 50%;
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 5px;
+    color: var(--primary);
+    padding: 2.5%;
+    cursor: pointer;
+}
+
+.ums-rp-login-dir-section{
+    height: 100%;
+    width: 35%;
+    z-index: 4;
+    border-radius: 25px;
+}
+
+.ums-rp-login-dir-container{
+    height: 95%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ums-rp-login-dir-container-logo-section{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.ums-rp-login-dir-container-logo-section span{
+    background-color: var(--primary);
+    opacity: 0.7;
+    height: max-content;
+    width: max-content;
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+    border-radius: 5px;
+}
+
+.ums-rp-login-dir-content-section{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.ums-rp-login-dir-content-text-section{
+    width: 100%;
+    height: max-content;
+}
+
+.ums-rp-login-dir-content-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--semibold);
+}
+
+.ums-rp-login-dir-content-text:nth-child(1) span{
+    height: max-content;
+    width: max-content;
+    font-size: 14px;
+    color: var(--primary);
+    text-align: center;
+    font-weight: var(--medium);
+}
+
+.ums-rp-login-dir-content-text:nth-child(2) span{
+    height: max-content;
+    width: max-content;
+    font-size: 20px;
+    color: var(--primary);
+    text-align: center;
+    font-weight: var(semibold);
+}
+
+.ums-rp-login-dir-content-log-section{
+    width: 100%;
+    height: max-content;
+}
+
+.ums-rp-login-dir-content-log-section-text{
+    height: max-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+.ums-rp-login-dir-content-log-section-text span{
+    font-size: 10px;
+    color: var(--primary);
+    height: max-content;
+    width: max-content;
+    text-align: center;
+}
+
+.ums-rp-login-dir-content-log-section-button{
+    height: max-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-rp-login-dir-content-log-section-button button{
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    color: white;
+    padding: 1.5%;
+    width: 50%;
+}

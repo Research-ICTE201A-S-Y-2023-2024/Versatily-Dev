@@ -1,0 +1,94 @@
+.ums-evp-main{
+    background-color: var(--primary);
+    height: 100vh;
+    width: 100vw;
+}
+
+.ums-evp-email-verification-section{
+    background-color: var(--tertiary);
+    width: 50%;
+    height: 65%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 30px;
+}
+
+.ums-evp-email-verification-content{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ums-evp-email-verification-logo-section{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-evp-email-verification-logo{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-evp-email-verification-logo i{
+    display: flex;
+    font-size: 128px;
+    height: max-content;
+    width: max-content;
+    color: var(--secondary);
+}
+
+.ums-evp-email-verification-text-section{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ums-evp-email-verification-text-section span:nth-child(1){
+    font-size: 20px;
+    font-weight: var(--medium);
+}
+
+.ums-evp-email-verification-text-section span:nth-child(2){
+    font-size: 14px;
+    color: var(--stress);
+    font-weight: var(--medium);
+}
+
+.ums-evp-email-verification-dir-section{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.ums-evp-email-verification-button-section{
+    width: 80%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-evp-email-verification-button-section button{
+    background-color: var(--secondary);
+    border: none;
+    color: var(--primary);
+    border-radius: 5px;
+    height: 50%;
+    width: 50%;
+    cursor: pointer;
+}
