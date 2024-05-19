@@ -1,3 +1,6 @@
 [submodule "FeedbackSystem"]
 	path = FeedbackSystem
 	url = https://github.com/fvjr156/feedback-system.git
+[submodule "feedback-system"]
+	path = feedback-system
+	url = https://github.com/fvjr156/feedback-system.git
