@@ -1,0 +1,333 @@
+.ums-adc-main{
+    background-color: var(--primary);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.ums-adc-sidebar-section{
+    width: 17.5%;
+    height: 100%;
+    background-color: var(--tertiary);
+}
+
+.ums-adc-sidebar-upper-section{
+    height: 15%;
+    width: 100%;
+}
+
+.ums-adc-sidebar-lower-section{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-sidebar-dir-section{
+    height: 97.5%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5%;
+}
+
+.ums-adc-sidebar-dir-header{
+    height: 2.5%;
+    width: 100%;
+    font-size: 10px;
+}
+
+.ums-adc-sidebar-dir-button{
+    width: 100%;
+    height: 5%;
+    display: flex;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.ums-adc-sidebar-dir-button:hover{
+    border: 1px solid var(--stress);
+}
+
+
+.ums-adc-sidebar-dir-button-icon{
+    height: 100%;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-sidebar-dir-button-icon i{
+    display: flex;
+}
+
+.ums-adc-sidebar-dir-button-label{
+    height: 100%;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 2.5%;
+}
+
+.ums-adc-sidebar-dir-button-label span{
+    font-size: 14px;
+    height: max-content;
+    width: max-content;
+}
+
+.ums-adc-sidebar-header-section{
+    width: 90%;
+    height: 90%;
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-sidebar-header{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ums-adc-sidebar-header-image{
+    height: 90%;
+    width: 30%;
+    background-color: var(--input-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.ums-adc-sidebar-header-image img{
+    width: 85%;
+    height: 100%;
+}
+
+.ums-adc-sidebar-header-text{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.ums-adc-sidebar-header-text span{
+    padding-left: 5%;
+    font-size: 20px;
+    color: var(--secondary);
+    font-weight: var(--semibold);
+}
+
+.ums-adc-content-section{
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ums-adc-navbar-section{
+    width: 100%;
+    height: 15%;
+    background-color: var(--tertiary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-navbar{
+    width: 100%;
+    height: 90%;
+    margin: 5px;
+    display: flex;
+}
+
+.ums-adc-page-title-section{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.ums-adc-page-title{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.ums-adc-page-title span{
+    height: max-content;
+    width: max-content;
+    font-size: 20px;
+    padding-left: 5%;
+}
+
+.ums-adc-navbar-profile-section{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.ums-adc-profile-section{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-profile{
+    background-color: var(--logo-bg);
+    height: 35%;
+    width: 35%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-profile-image{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    overflow: hidden;
+}
+
+.ums-adc-profile-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.ums-adc-notifications-section{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.ums-adc-notifications{
+    background-color: var(--logo-bg);
+    height: 35%;
+    width: 35%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-notifications i{
+    font-size: 20px;
+    height: max-content;
+    width: max-content;
+    display: flex;
+    cursor: pointer;
+}
+
+.ums-content-section-status-bar{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.ums-adc-status-bar-section{
+    width: 20%;
+    height: 100%;
+    background-color: var(--input-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-status-bar{
+    height: 97.5%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ums-adc-status-bar-label{
+    font-size: 10px;
+}
+
+.ums-adc-status-bar-account{
+    height: 9%;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--logo-bg);
+    border-radius: 10px;
+}
+
+.ums-adc-status-bar-account-img{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-status-bar-account-profile-img{
+    border-radius: 50%;
+    height: 22.5px;
+    width: 22.5px;
+    background-color: orange;
+}
+
+.ums-adc-status-bar-account-profile-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--stress);
+}
+
+.ums-adc-status-bar-account-name{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.ums-adc-status-bar-account-name span{
+    font-size: 10px;
+    font-weight: var(--semibold);
+    height: max-content;
+    width: max-content;
+}
+
+.ums-adc-status-bar-account-status{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-adc-status-active{
+    background-color: green;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+}
