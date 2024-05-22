@@ -1,5 +1,5 @@
 @echo off
 cls
-start cmd /k "cd C:/POS_modules/POS_Modules/client && npm run start"
-start cmd /k "cd C:/POS_modules/POS_Modules/server && npm run dev"
-exit    
+start cmd /k "cd C:\fine-dining-restaturant\Online-Ordering_Modules\client && npm run start"
+start cmd /k "cd C:\fine-dining-restaturant\Online-Ordering_Modules\server && npm run dev"
+exit
