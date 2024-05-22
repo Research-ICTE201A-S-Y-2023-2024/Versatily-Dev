@@ -1,0 +1,33 @@
+.ums-ao-content-section{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ums-ao-content-container{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.ums-ao-content-image-section{
+    height: 40%;
+    width: 80%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.ums-ao-content-image-section img{
+    width: 125%;
+    height: 115%;
+}
+
+.ums-ao-content-image-filler{
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}

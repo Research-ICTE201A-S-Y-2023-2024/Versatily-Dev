@@ -1,0 +1,100 @@
+.ums-evp-main {
+    background-color: var(--primary);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.span {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.ums-evp-email-verification-section {
+    background-color: var(--tertiary);
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ums-evp-email-verification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.ums-evp-email-verification-logo-section {
+    margin-bottom: 20px;
+}
+
+.ums-evp-email-verification-logo {
+    font-size: 128px;
+    color: var(--secondary);
+}
+
+.ums-evp-email-verification-text-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ums-evp-email-verification-text-section span:nth-child(1) {
+    font-size: 20px;
+    font-weight: var(--medium);
+}
+
+.ums-evp-email-verification-text-section span:nth-child(2) {
+    font-size: 14px;
+    color: var(--stress);
+    font-weight: var(--medium);
+}
+
+.ums-evp-email-verification-dir-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ums-evp-email-verification-dir-section span {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.ums-evp-email-verification-dir-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    background-color: var(--primary);
+    border-radius: 5px;
+}
+
+.ums-evp-email-verification-button-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ums-evp-email-verification-button-section button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    background-color: var(--secondary);
+    border: none;
+    color: var(--primary);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ums-evp-email-verification-button-section button:disabled {
+    color: var(--secondary);
+    background-color: #ccc;
+    cursor: not-allowed;
+}
