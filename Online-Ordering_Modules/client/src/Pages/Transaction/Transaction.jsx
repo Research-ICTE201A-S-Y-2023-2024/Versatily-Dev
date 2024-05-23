@@ -148,7 +148,7 @@ const Transaction = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="9">No orders found.</td>
+                      <td colSpan="9">No transaction found.</td>
                     </tr>
                   )}
                 </tbody>

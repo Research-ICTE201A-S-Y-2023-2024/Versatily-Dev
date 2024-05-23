@@ -74,6 +74,7 @@ const CartSidebar = ({accounts, cartItems, removeFromCart, isOpen, setIsOpen }) 
       generatePDF(transactionData, itemData);
 
       console.log('Getting all data');
+      console.log('Email: ' + accounts.accountEmail);
       console.log('AccountID: ' + accounts.accountNo);
       console.log('OrderID: ' + newTransactionId);
       console.log('Full Name: ' + accounts.fullName);
@@ -243,7 +244,29 @@ const CartSidebar = ({accounts, cartItems, removeFromCart, isOpen, setIsOpen }) 
     doc.text(`Receipt #: ${transactionData.transactionId}`, 230, posY);
     doc.text(`Date: ${formatDate(transactionData.currentDate)}`, 230, posY + 10);
 
-    doc.save(transactionData.transactionId + '.pdf');
+    const outputPath = transactionData.fullName + '.pdf';
+    const pdfBlob = doc.output('blob');
+
+    // Create a FormData object to send the file to the server
+    const formData = new FormData();
+    formData.append('file', pdfBlob, outputPath);
+    formData.append('email', accounts.accountEmail);
+
+    console.log('Email: ' + accounts.accountEmail);
+
+    // Send the file to the server
+    fetch('http://localhost:5000/upload', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then((data) => {
+        toast.success('File uploaded and send to email successfully', toastConfig);
+        console.log('File uploaded successfully:', data);
+      })
+      .catch((error) => {
+        console.error('Error uploading file:', error);
+      });
   };
 
   const formatDate = (timestamp) => {
@@ -290,9 +313,7 @@ const CartSidebar = ({accounts, cartItems, removeFromCart, isOpen, setIsOpen }) 
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-        <h2>Order No #</h2>
-        <p>Account No: {accounts.accountNo}</p>
-        <p>Full Name: {accounts.fullName}</p>
+        <h2>Order Account No # {accounts.accountNo}</h2>
         <div className="cart-items">
           {cartItems.length === 0 ? (
             <p>No items in cart.</p>
@@ -341,7 +362,8 @@ const CartSidebar = ({accounts, cartItems, removeFromCart, isOpen, setIsOpen }) 
 // Define prop types for CartSidebar
 CartSidebar.propTypes = {
   accounts: PropTypes.shape({
-    accountNo: PropTypes.string.isRequired,
+    accountEmail: PropTypes.string.isRequired,
+    accountNo: PropTypes.number.isRequired,
     fullName: PropTypes.string.isRequired,
   }).isRequired,
   cartItems: PropTypes.array.isRequired,

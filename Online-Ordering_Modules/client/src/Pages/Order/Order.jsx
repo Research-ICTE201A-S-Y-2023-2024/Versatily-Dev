@@ -350,6 +350,7 @@ const Order = () => {
       {isCartOpen && (
         <CartSidebar
           accounts={{
+            accountEmail: loggedInAccount.account_email,
             accountNo: loggedInAccount.account_id,
             fullName:
               loggedInAccount.account_firstName +
