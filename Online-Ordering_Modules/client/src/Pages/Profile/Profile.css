@@ -17,6 +17,11 @@
   left: 0;
 }
 
+/* default A href */
+a {
+  text-decoration: none;
+}
+
 /* NAVBAR */
 #profile-content nav {
   height: 56px;

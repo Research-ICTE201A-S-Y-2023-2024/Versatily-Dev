@@ -11,9 +11,9 @@ body {
 
 :root {
   /*Color Global CSS Formats*/
-  --primary: #DEC59D;
-  --secondary: #625A43;
-  --tertiary: #FFFFFF;
+  --primary: #dec59d;
+  --secondary: #625a43;
+  --tertiary: #ffffff;
 
   /*Text Global CSS Formats*/
   --poppins: "Poppins", sans-serif;

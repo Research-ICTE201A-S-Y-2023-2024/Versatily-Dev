@@ -51,11 +51,11 @@ const Order = () => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-  // setFilteredProducts(
-  //   products.filter((product) =>
-  //     product.name.toLowerCase().includes(event.target.value.toLowerCase())
-  //   )
-  // );
+    // setFilteredProducts(
+    //   products.filter((product) =>
+    //     product.name.toLowerCase().includes(event.target.value.toLowerCase())
+    //   )
+    // );
   };
 
   const handleSearchSubmit = (event) => {
@@ -83,7 +83,7 @@ const Order = () => {
       setLoggedInAccount(decode);
 
       const username = decode.username;
-      
+
       if (username) {
         getLoggedInAccount(storedToken, username); // Call API with token and username
       } else {

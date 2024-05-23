@@ -38,7 +38,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(verifyPassowrd == formData.account_password) {
+      if (verifyPassowrd == formData.account_password) {
         const response = await axios.post(
           'http://localhost:5000/register',
           formData,
@@ -185,7 +185,11 @@ const Register = () => {
                 </div>
 
                 <div className="inputBox">
-                  <input onClick={handleSubmit} type="submit" value="Register" />
+                  <input
+                    onClick={handleSubmit}
+                    type="submit"
+                    value="Register"
+                  />
                 </div>
 
                 <div className="links-register">

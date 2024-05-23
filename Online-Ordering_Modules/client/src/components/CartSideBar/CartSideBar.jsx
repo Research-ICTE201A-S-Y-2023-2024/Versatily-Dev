@@ -86,28 +86,27 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
         console.log('total: ' + itemX.price * itemX.quantity);
       });
 
-      console.log({sampleData});
+      console.log({ sampleData });
 
       Swal.fire({
         title: 'Thank You for Your Order',
         text: 'Your order is now reserved.',
         icon: 'success',
       }).then((result) => {
-        if(result.isConfirmed) {
+        if (result.isConfirmed) {
           window.location.reload();
         }
       });
 
       // this should be back on landing page or maybe use window.location.reload method
       navigate('/orders');
-
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   const generatePDF = (transactionData, itemData) => {
-  // Create an instance of a jsPDF
+    // Create an instance of a jsPDF
     const doc = new jsPDF({
       orientation: 'p',
       unit: 'pt',

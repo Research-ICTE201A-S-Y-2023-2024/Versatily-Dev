@@ -20,7 +20,7 @@ const Receipt = () => {
   useEffect(() => {
     getOrderById();
     document.title = 'Receipt # ' + id;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (!order) {

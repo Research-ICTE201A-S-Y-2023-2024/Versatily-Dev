@@ -54,7 +54,7 @@ const Category = () => {
   };
 
   const handleToggleSidebar = () => {
-  // Toggle sidebar
+    // Toggle sidebar
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('hide');
   };

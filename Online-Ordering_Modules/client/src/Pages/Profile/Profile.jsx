@@ -21,6 +21,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    document.title = 'Account';
     window.addEventListener('click', handleClickOutside);
     return () => {
       window.removeEventListener('click', handleClickOutside);
@@ -90,9 +91,9 @@ const Profile = () => {
       <section id="profile-content">
         {/* NAVBAR */}
         <nav>
-          <div className="logo">
+          <Link to={'/orders'} className="logo">
             <h1>Versatily</h1>
-          </div>
+          </Link>
           <div className="container-logut-drop-down" onClick={toggleDropdown}>
             <div className="profile-name">
               <div className="profile-content-icon">
@@ -191,7 +192,7 @@ const Profile = () => {
                         name="account_firstName"
                         required
                         value={
-                          loggedInAccount ? loggedInAccount.account_email : ''                     
+                          loggedInAccount ? loggedInAccount.account_email : ''
                         }
                       />{' '}
                       <i>Email </i>
