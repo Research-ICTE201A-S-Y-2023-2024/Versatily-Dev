@@ -1,0 +1,8 @@
+.header-content {
+    color: var(--bg-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-400px, -20%);
+    font-size: 40px;
+}
