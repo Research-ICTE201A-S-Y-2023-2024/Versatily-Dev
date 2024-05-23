@@ -63,14 +63,12 @@ export const registerAccount = async (req, res) => {
     // Hash the password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(account_password, saltRounds);
-    const hashedFirstName = await bcrypt.hash(account_firstName, saltRounds);
-    const hashedLastnName = await bcrypt.hash(account_lastName, saltRounds);
 
     // Create user in VersatilyDB "accounts table"
     const user = await Accounts.create({
       account_username: account_username,
-      account_firstName: hashedFirstName,
-      account_lastName: hashedLastnName,
+      account_firstName: account_firstName,
+      account_lastName: account_lastName,
       account_pass: hashedPassword,
       account_email: account_email,
       account_contactNo: account_contactNo,
