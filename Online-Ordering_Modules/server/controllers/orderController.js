@@ -54,7 +54,9 @@ export const saveTransactionAndItems = async (req, res) => {
 
         // Create a new transaction instance
         const newTransaction = await Transaction.create({
+            accountId: transactionData.accountId,
             transactionId: transactionData.transactionId,
+            fullName: transactionData.fullName,
             overallTotal: transactionData.overallTotal,
         });
 

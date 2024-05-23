@@ -242,3 +242,15 @@ a {
   white-space: nowrap;
   color: var(--tertiary);
 }
+
+@media (max-width: 550px) {
+  .account-form .account-container {
+    width: 350px; 
+  }
+}
+
+@media (max-width: 400px) {
+  .account-form .account-container {
+    width: 250px; 
+  }
+}

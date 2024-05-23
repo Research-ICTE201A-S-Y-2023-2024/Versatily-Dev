@@ -10,7 +10,15 @@ const Transaction = database.define('transaction', {
         primaryKey: true,
         autoIncrement: true
     },
+    accountId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     transactionId: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    fullName: {
         type: DataTypes.STRING,
         allowNull: false
     },

@@ -122,7 +122,9 @@ const Transaction = () => {
               <table>
                 <thead>
                   <tr>
+                    <th>Account No</th>
                     <th>OrderID</th>
+                    <th>Full Name</th>
                     <th>Total Price</th>
                     <th>CreateDate</th>
                     <th>Action</th>
@@ -132,7 +134,9 @@ const Transaction = () => {
                   {orders.length > 0 ? (
                     orders.map((order, index) => (
                       <tr key={index}>
+                        <td>{order.accountId}</td>
                         <td>{order.transactionId}</td>
+                        <td>{order.fullName}</td>
                         <td>{order.overallTotal}</td>
                         <td>{formatDate(order.createdDate)}</td>
                         <td>

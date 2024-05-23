@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 
-const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
+const CartSidebar = ({accounts, cartItems, removeFromCart, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const [, setTransactionId] = useState('');
 
@@ -50,7 +50,9 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       setTransactionId(newTransactionId);
 
       const transactionData = {
+        accountId: accounts.accountNo,
         transactionId: newTransactionId,
+        fullName: accounts.fullName,
         currentDate: getCurrentDate(),
         overallTotal,
       };
@@ -72,7 +74,9 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       generatePDF(transactionData, itemData);
 
       console.log('Getting all data');
+      console.log('AccountID: ' + accounts.accountNo);
       console.log('OrderID: ' + newTransactionId);
+      console.log('Full Name: ' + accounts.fullName);
       console.log('currentDate: ' + getCurrentDate());
       console.log('Total Price: ' + overallTotal);
       console.log('-------------------------------');
@@ -106,11 +110,12 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
   };
 
   const generatePDF = (transactionData, itemData) => {
+
     // Create an instance of a jsPDF
     const doc = new jsPDF({
       orientation: 'p',
       unit: 'pt',
-      format: [350, 800],
+      format: [350, 500],
     });
 
     let posY = 50;
@@ -129,8 +134,8 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     posY += 40;
 
     // Draw the line break
-    const lineBreakColor = '#000000';
-    const lineBreak = ' - '.repeat(100);
+    const lineBreakColor = '#555555';
+    const lineBreak = '-------------------------------------------------------';
 
     doc.setTextColor(lineBreakColor);
     doc.text(lineBreak, 10, posY);
@@ -143,13 +148,20 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     doc.setTextColor(tableHeadColor);
     doc.setFontSize(tableHeadFontSize);
     doc.text('QTY', 30, posY);
-    doc.text('ITEM', 100, posY);
+    doc.text('ITEM', 110, posY);
     doc.text('AMOUNT', 270, posY);
 
     // Draw the line below the headers
     posY += 10;
-    doc.text(lineBreak, 10, posY);
 
+    const lineBreakColor2 = '#555555';
+    const lineBreak2 = '-----------------------------------------------------------------------------------';
+
+    doc.setTextColor(lineBreakColor2);
+    doc.text(lineBreak2, 10, posY);
+
+    doc.setTextColor(tableHeadColor);
+    doc.setFontSize(8);
     // Iterate over item data and draw each item
     itemData.forEach((item, index) => {
       posY += 20; // Adjust the vertical spacing as needed
@@ -157,7 +169,7 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       doc.setFontSize(12);
       // Convert values to strings before passing them to text method
       doc.text(item.quantity.toString() + 'x', 30, posY);
-      doc.text(item.name.toString(), 100, posY);
+      doc.text(item.name.toString(), 110, posY);
       doc.text(item.total.toFixed(2).toString(), 270, posY);
 
       if (index !== itemData.length - 1) {
@@ -166,8 +178,13 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     });
 
     posY += 25;
-    doc.text(lineBreak, 10, posY);
-
+    const lineBreakColor3 = '#555555';
+    const lineBreak3 = '-----------------------------------------------------------------------------------';
+    doc.setTextColor(lineBreakColor3);
+    doc.text(lineBreak3, 10, posY);
+    
+    doc.setTextColor(tableHeadColor);
+    doc.setFontSize(tableHeadFontSize);
     const itemCount = itemData.length;
     const overallTotal =
       transactionData && transactionData.overallTotal
@@ -179,6 +196,12 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
 
     doc.text(`${itemCount}`, 250, posY + 20);
     doc.text(`${overallTotal}`, 250, posY + 40);
+
+    posY += 60;
+    const lineBreakColor4 = '#555555';
+    const lineBreak4 = '-----------------------------------------------------------------------------------';
+    doc.setTextColor(lineBreakColor4);
+    doc.text(lineBreak4, 10, posY);
 
     posY += 25;
 
@@ -216,12 +239,9 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     posY += 45;
 
     doc.setFontSize(8);
-    doc.text(`Receipt #: ${transactionData.transactionId}`, 145, posY);
-    doc.text(
-      `Date: ${formatDate(transactionData.currentDate)}`,
-      145,
-      posY + 10,
-    );
+    doc.text(`Customer Name: ${transactionData.fullName}`, 25, posY);
+    doc.text(`Receipt #: ${transactionData.transactionId}`, 230, posY);
+    doc.text(`Date: ${formatDate(transactionData.currentDate)}`, 230, posY + 10);
 
     doc.save(transactionData.transactionId + '.pdf');
   };
@@ -271,6 +291,8 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
           </svg>
         </button>
         <h2>Order No #</h2>
+        <p>Account No: {accounts.accountNo}</p>
+        <p>Full Name: {accounts.fullName}</p>
         <div className="cart-items">
           {cartItems.length === 0 ? (
             <p>No items in cart.</p>
@@ -318,6 +340,10 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
 
 // Define prop types for CartSidebar
 CartSidebar.propTypes = {
+  accounts: PropTypes.shape({
+    accountNo: PropTypes.string.isRequired,
+    fullName: PropTypes.string.isRequired,
+  }).isRequired,
   cartItems: PropTypes.array.isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateQuantity: PropTypes.func.isRequired,

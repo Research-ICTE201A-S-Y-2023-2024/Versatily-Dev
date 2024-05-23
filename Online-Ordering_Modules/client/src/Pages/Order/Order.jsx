@@ -349,6 +349,13 @@ const Order = () => {
       {/* CONTENT */}
       {isCartOpen && (
         <CartSidebar
+          accounts={{
+            accountNo: loggedInAccount.account_id,
+            fullName:
+              loggedInAccount.account_firstName +
+              ' ' +
+              loggedInAccount.account_lastName,
+          }}
           cartItems={cartItems}
           removeFromCart={removeFromCart}
           updateQuantity={updateQuantity}
