@@ -13,7 +13,7 @@ export const getAllCategory = async (request, response) => {
     }
 }
 
-export const getCategoryById = async (request, response) => {
+export const getCategoryById = async (req, res) => {
     try {
         const response = await Category.findOne({
             where: {
@@ -22,15 +22,15 @@ export const getCategoryById = async (request, response) => {
         });
 
         if (!response) {
-            return response.status(404).json({ msg: "Product not found" });
+            return res.status(404).json({ msg: "Category not found" });
         }
 
-        response.json(response);
+        res.json(response);
     } catch (error) {
         console.log(error.message);
-        response.status(500).json({ msg: "Internal Server Error" });
+        res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
 
 export const saveCategory = async(request, response) => {
     // Check if req.files is undefined or null
