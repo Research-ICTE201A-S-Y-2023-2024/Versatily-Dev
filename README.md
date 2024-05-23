@@ -1,10 +1,11 @@
-## Versatily Web Portal (not really) & CMS
+# Versatily Web Portal (not really) & CMS
 
 
 - Create connection (not really but through links basically referring to other systems)
 
+---
 
-# Focus
+## Focus
 
 - Creating a CMS then making sure that the landing page is responsive
 - Create card sections with link embeds when clicked to direct to other systems
@@ -15,7 +16,9 @@
 - Testimonial Section will come from the ACRS
 - QR Code Scanning in the footer section
 
-# Specfic Functions
+---
+
+## Specfic Functions
 - Account Modules
 - CMS Module
 - Request Module
