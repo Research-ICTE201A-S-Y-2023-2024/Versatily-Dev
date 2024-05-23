@@ -1,7 +1,7 @@
-import "./Receipt.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import './Receipt.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Receipt = () => {
   const { id } = useParams();
@@ -10,16 +10,16 @@ const Receipt = () => {
   const getOrderById = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/orders/${id}`);
-      console.log("API Response:", response.data);
+      console.log('API Response:', response.data);
       setOrder(response.data);
     } catch (error) {
-      console.log("Error fetching order by ID", error);
+      console.log('Error fetching order by ID', error);
     }
   };
 
   useEffect(() => {
     getOrderById();
-    document.title = "Receipt # " + id;
+    document.title = 'Receipt # ' + id;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -35,14 +35,14 @@ const Receipt = () => {
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const options = {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     };
     return date.toLocaleDateString('en-US', options);
-};
+  };
 
   return (
     <div className="receipt-container">

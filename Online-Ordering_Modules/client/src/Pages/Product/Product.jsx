@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import "./Product.css";
-import profileImage from "../../assets/img/profile.jpg";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import './Product.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import profileImage from '../../assets/img/profile.jpg';
 
 const Product = () => {
   // State
@@ -13,24 +12,24 @@ const Product = () => {
   const [categories, setCategories] = useState([]);
   const [modalCreate, setModalCreate] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [category, setCategory] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [category, setCategory] = useState('');
   const [outOfStock, setOutOfStock] = useState(false);
   const [description, setDescription] = useState();
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [selectedStatus, setSelectedStatus] = useState("All Status");
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [selectedStatus, setSelectedStatus] = useState('All Status');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   // Filter products when category or status changes
   useEffect(() => {
-    document.title = "Products";
+    document.title = 'Products';
     filterProducts(selectedCategory, selectedStatus);
   }, [selectedCategory, selectedStatus]);
 
@@ -38,13 +37,13 @@ const Product = () => {
   const filterProducts = (category, status) => {
     let filtered = [...products];
 
-    if (category !== "All Categories") {
-      filtered = filtered.filter((product) => product.category === category);
+    if (category !== 'All Categories') {
+      filtered = filtered.filter(product => product.category === category);
     }
 
-    if (status !== "All Status") {
+    if (status !== 'All Status') {
       filtered = filtered.filter(
-        (product) => product.outOfStock === (status === "Disabled")
+        product => product.outOfStock === (status === 'Disabled'),
       );
     }
 
@@ -84,12 +83,12 @@ const Product = () => {
 
   // Function to toggle the create product modal
   const toggleModalCreate = () => {
-    setName("");
-    setPrice("");
-    setQuantity("");
-    setCategory("");
+    setName('');
+    setPrice('');
+    setQuantity('');
+    setCategory('');
     setOutOfStock(false);
-    setDescription("");
+    setDescription('');
     setFile(null);
     setModalCreate(!modalCreate);
   };
@@ -112,55 +111,55 @@ const Product = () => {
   // Function to fetch all products from the server
   const getProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/products");
+      const response = await axios.get('http://localhost:5000/products');
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {
-      console.error("Error fetching the products", error);
+      console.error('Error fetching the products', error);
     }
   };
 
   const getAllCategory = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/categories");
+      const response = await axios.get('http://localhost:5000/categories');
       setCategories(response.data);
     } catch (error) {
-      console.log("Error fetching the category", error);
+      console.log('Error fetching the category', error);
     }
   };
 
   const toastConfig = {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: 'light',
   };
 
   // Function to save a new product
   const saveProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("category", category);
-    formData.append("outOfStock", outOfStock);
-    formData.append("description", description);
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('quantity', quantity);
+    formData.append('category', category);
+    formData.append('outOfStock', outOfStock);
+    formData.append('description', description);
     if (file) {
-      formData.append("file", file);
+      formData.append('file', file);
     }
 
     try {
-      await axios.post("http://localhost:5000/products", formData, {
+      await axios.post('http://localhost:5000/products', formData, {
         headers: {
-          "Content-type": "multipart/form-data",
+          'Content-type': 'multipart/form-data',
         },
       });
-      toast.success("Product Created Successfully", toastConfig);
+      toast.success('Product Created Successfully', toastConfig);
       getProducts();
       toggleModalCreate();
     } catch (error) {
@@ -172,11 +171,11 @@ const Product = () => {
   const deleteProduct = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/products/${id}`);
-      toast.success("Product Deleted Successfully", toastConfig);
+      toast.success('Product Deleted Successfully', toastConfig);
       getProducts();
     } catch (error) {
       console.log(error);
-      toast.error("Failed to delete product", toastConfig);
+      toast.error('Failed to delete product', toastConfig);
     }
   };
 
@@ -203,16 +202,16 @@ const Product = () => {
   const updateProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("category", category);
-    formData.append("outOfStock", outOfStock);
-    formData.append("description", description);
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('quantity', quantity);
+    formData.append('category', category);
+    formData.append('outOfStock', outOfStock);
+    formData.append('description', description);
 
     // Check if a new file is selected
     if (file) {
-      formData.append("file", file);
+      formData.append('file', file);
     }
 
     try {
@@ -221,19 +220,19 @@ const Product = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
-        }
+        },
       );
 
-      console.log("Product updated successfully");
-      toast.success("Product Updated Successfully", toastConfig);
+      console.log('Product updated successfully');
+      toast.success('Product Updated Successfully', toastConfig);
 
-      console.log("Response:", response.data);
+      console.log('Response:', response.data);
       getProducts();
       toggleModalUpdate(null);
     } catch (error) {
-      console.log("Update error:", error);
+      console.log('Update error:', error);
     }
   };
 
@@ -244,22 +243,22 @@ const Product = () => {
   };
 
   const handleToggleSidebar = () => {
-    // Toggle sidebar
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("hide");
+  // Toggle sidebar
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('hide');
   };
 
   // Function to format a timestamp into a readable date string
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const options = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     };
-    return date.toLocaleDateString("en-US", options);
+    return date.toLocaleDateString('en-US', options);
   };
 
   return (
@@ -275,7 +274,7 @@ const Product = () => {
         <ul className="side-menu top">
           <span className="side-text-category">Menu</span>
           <Link to="/orders">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-cart"></i>
                 <span className="text">Order</span>
@@ -284,7 +283,7 @@ const Product = () => {
           </Link>
           <span className="side-text-category">Customize</span>
           <Link to="/products">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-package"></i>
                 <span className="text">Product</span>
@@ -292,7 +291,7 @@ const Product = () => {
             </li>
           </Link>
           <Link to="/categories">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-category"></i>
                 <span className="text">Category</span>
@@ -301,7 +300,7 @@ const Product = () => {
           </Link>
           <span className="side-text-category">Transaction</span>
           <Link to="/transactions">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-history"></i>
                 <span className="text">History</span>
@@ -324,12 +323,7 @@ const Product = () => {
               </button>
             </div>
           </form>
-          <input type="checkbox" id="switch-mode" hidden />
-          <label htmlFor="switch-mode" className="switch-mode"></label>
-          <a href="#" className="notification">
-            <i className="bx bxs-bell"></i>
-            <span className="num">8</span>
-          </a>
+          <span className="profile-name">Argie</span>
           <a href="#" className="profile">
             <img src={profileImage} />
           </a>
@@ -428,7 +422,7 @@ const Product = () => {
                           />
                           <p className="text-paragraph">{product.name}</p>
                         </td>
-                        <td>{product.outOfStock ? "Disabled" : "Available"}</td>
+                        <td>{product.outOfStock ? 'Disabled' : 'Available'}</td>
                         <td>{product.category}</td>
                         <td>{product.price}</td>
                         <td>{product.quantity}</td>
@@ -471,26 +465,26 @@ const Product = () => {
                 <div className="product-name-price">
                   <label>
                     Product Name<span>*</span>
-                  </label>{" "}
+                  </label>{' '}
                   <br></br>
                   <input
                     className="input"
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={e => setName(e.target.value)}
                     placeholder="Ex. Big Mac"
                     required
                   />
                   {/* <h5 >Validation Text</h5> */}
                   <label>
                     Price<span>*</span>
-                  </label>{" "}
+                  </label>{' '}
                   <br></br>
                   <input
                     className="input"
                     type="number"
                     value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    onChange={e => setPrice(e.target.value)}
                     placeholder="₱0 - 9999"
                     required
                   />
@@ -503,7 +497,7 @@ const Product = () => {
                   <select
                     name="category"
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={e => setCategory(e.target.value)}
                     required
                   >
                     <option value="" disabled>
@@ -522,13 +516,13 @@ const Product = () => {
                   {/* <h5 >Validation Text</h5> */}
                   <label>
                     Stock<span>*</span>
-                  </label>{" "}
+                  </label>{' '}
                   <br></br>
                   <input
                     className="input"
                     type="number"
                     value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
+                    onChange={e => setQuantity(e.target.value)}
                     placeholder="Ex. 0 - 999"
                     required
                   />
@@ -538,12 +532,12 @@ const Product = () => {
               <div className="product-description">
                 <label>
                   Description<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <textarea
                   className="input"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={e => setDescription(e.target.value)}
                   rows={4}
                   cols={70}
                   placeholder="Enter the description"
@@ -604,26 +598,26 @@ const Product = () => {
               <div>
                 <label>
                   Product Name<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <input
                   className="input"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   placeholder="Type product name"
                   required
                 />
                 <h5>Validation Text</h5>
                 <label>
                   Price<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <input
                   className="input"
                   type="number"
                   value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={e => setPrice(e.target.value)}
                   placeholder="₱500"
                   required
                 />
@@ -636,7 +630,7 @@ const Product = () => {
                 <select
                   name="category"
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={e => setCategory(e.target.value)}
                   required
                 >
                   <option value="" disabled>
@@ -655,13 +649,13 @@ const Product = () => {
                 <h5>Validation Text</h5>
                 <label>
                   Quantity<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <input
                   className="input"
                   type="number"
                   value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={e => setQuantity(e.target.value)}
                   placeholder="Type product quantity"
                   required
                 />
@@ -670,12 +664,12 @@ const Product = () => {
               <div>
                 <label>
                   Description<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <textarea
                   className="input"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={e => setDescription(e.target.value)}
                   rows={4}
                   cols={50}
                   maxLength={35}
@@ -686,7 +680,7 @@ const Product = () => {
               </div>
               <div
                 className={`product-cell status-cell ${
-                  isChecked ? "disabled" : "active"
+                  isChecked ? 'disabled' : 'active'
                 }`}
               >
                 <label>Product Status</label>
@@ -709,7 +703,7 @@ const Product = () => {
                   value={isChecked ? 1 : 0}
                 />
                 <p>
-                  Status: {!isChecked ? "0 (In Stock)" : "1 (Out of Stock)"}
+                  Status: {!isChecked ? '0 (In Stock)' : '1 (Out of Stock)'}
                 </p>
               </div>
               <div className="update_img">
@@ -719,7 +713,7 @@ const Product = () => {
                   {preview ? (
                     <img src={preview} alt={name} width={120} height={120} />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               </div>

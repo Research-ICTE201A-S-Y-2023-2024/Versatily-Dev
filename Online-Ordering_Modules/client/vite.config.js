@@ -5,6 +5,6 @@ import vitePluginCss from 'vite-plugin-css';
 export default defineConfig({
   plugins: [
     react(),
-    vitePluginCss
-  ]
+    vitePluginCss,
+  ],
 });

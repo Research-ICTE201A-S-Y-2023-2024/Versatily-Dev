@@ -1,8 +1,8 @@
-import "./Transaction.css";
-import profileImage from "../../assets/img/profile.jpg";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import './Transaction.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import profileImage from '../../assets/img/profile.jpg';
 
 const Transaction = () => {
   const [orders, setOrders] = useState([]);
@@ -14,17 +14,17 @@ const Transaction = () => {
   };
 
   const handleToggleSidebar = () => {
-    // Toggle sidebar
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("hide");
+  // Toggle sidebar
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('hide');
   };
 
   const getAllOrders = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/orders");
+      const response = await axios.get('http://localhost:5000/orders');
       setOrders(response.data);
     } catch (error) {
-      console.error("Error fetching the orders", error);
+      console.error('Error fetching the orders', error);
     }
   };
 
@@ -36,13 +36,13 @@ const Transaction = () => {
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const options = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     };
-    return date.toLocaleDateString("en-US", options);
+    return date.toLocaleDateString('en-US', options);
   };
 
   return (
@@ -58,7 +58,7 @@ const Transaction = () => {
         <ul className="side-menu top">
           <span className="side-text-category">Menu</span>
           <Link to="/orders">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-cart"></i>
                 <span className="text">Order</span>
@@ -67,7 +67,7 @@ const Transaction = () => {
           </Link>
           <span className="side-text-category">Customize</span>
           <Link to="/products">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-package"></i>
                 <span className="text">Product</span>
@@ -75,7 +75,7 @@ const Transaction = () => {
             </li>
           </Link>
           <Link to="/categories">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-category"></i>
                 <span className="text">Category</span>
@@ -84,7 +84,7 @@ const Transaction = () => {
           </Link>
           <span className="side-text-category">Transaction</span>
           <Link to="/transactions">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-history"></i>
                 <span className="text">History</span>
@@ -107,12 +107,7 @@ const Transaction = () => {
               </button>
             </div>
           </form>
-          <input type="checkbox" id="switch-mode" hidden />
-          <label htmlFor="switch-mode" className="switch-mode"></label>
-          <a href="#" className="notification">
-            <i className="bx bxs-bell"></i>
-            <span className="num">8</span>
-          </a>
+          <span className="profile-name">Argie</span>
           <a href="#" className="profile">
             <img src={profileImage} />
           </a>

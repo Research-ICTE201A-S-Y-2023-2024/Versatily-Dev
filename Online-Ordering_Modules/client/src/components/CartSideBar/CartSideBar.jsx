@@ -1,26 +1,26 @@
-import PropTypes from "prop-types";
-import "./CartSideaBar.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { jsPDF } from "jspdf";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import PropTypes from 'prop-types';
+import './CartSideaBar.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { jsPDF } from 'jspdf';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 
 const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
-  const [, setTransactionId] = useState("");
+  const [, setTransactionId] = useState('');
 
   const toastConfig = {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: 'light',
   };
 
   const calculateTotal = (price, quantity) => {
@@ -34,14 +34,14 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
 
   const generateOrderID = () => {
     return uuidv4();
-  }
+  };
 
   const generatePDFAndSaveData = async () => {
     try {
       if (cartItems.length === 0) {
         toast.error(
-          "Cart is empty. Add items before generating Receipt.",
-          toastConfig
+          'Cart is empty. Add items before generating Receipt.',
+          toastConfig,
         );
         return;
       }
@@ -52,10 +52,10 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       const transactionData = {
         transactionId: newTransactionId,
         currentDate: getCurrentDate(),
-        overallTotal: overallTotal,
+        overallTotal,
       };
 
-      const itemData = cartItems.map((item) => ({
+      const itemData = cartItems.map(item => ({
         transactionId: newTransactionId,
         name: item.name,
         category: item.category,
@@ -64,7 +64,7 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
         total: item.price * item.quantity,
       }));
 
-      await axios.post("http://localhost:5000/orders", {
+      await axios.post('http://localhost:5000/orders', {
         transactionData,
         itemData,
       });
@@ -72,26 +72,26 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       generatePDF(transactionData, itemData);
 
       console.log('Getting all data');
-      console.log("OrderID: " + newTransactionId);
-      console.log("currentDate: " + getCurrentDate());
-      console.log("Total Price: " + overallTotal);
-      console.log("-------------------------------");
+      console.log('OrderID: ' + newTransactionId);
+      console.log('currentDate: ' + getCurrentDate());
+      console.log('Total Price: ' + overallTotal);
+      console.log('-------------------------------');
 
       const sampleData = cartItems.map((itemX) => {
-        console.log("ItemID: " + newTransactionId);
-        console.log("name: " + itemX.name);
-        console.log("category: " + itemX.category);
-        console.log("price: " + itemX.price);
-        console.log("quantity: " + itemX.quantity);
-        console.log("total: " + itemX.price * itemX.quantity);
-      })
+        console.log('ItemID: ' + newTransactionId);
+        console.log('name: ' + itemX.name);
+        console.log('category: ' + itemX.category);
+        console.log('price: ' + itemX.price);
+        console.log('quantity: ' + itemX.quantity);
+        console.log('total: ' + itemX.price * itemX.quantity);
+      });
 
       console.log({sampleData});
 
       Swal.fire({
-        title: "Thank You for Your Order",
-        text: "Your order is now reserved.",
-        icon: "success"
+        title: 'Thank You for Your Order',
+        text: 'Your order is now reserved.',
+        icon: 'success',
       }).then((result) => {
         if(result.isConfirmed) {
           window.location.reload();
@@ -102,23 +102,23 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
       navigate('/orders');
 
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
   const generatePDF = (transactionData, itemData) => {
-    // Create an instance of a jsPDF
+  // Create an instance of a jsPDF
     const doc = new jsPDF({
-      orientation: "p",
-      unit: "pt",
+      orientation: 'p',
+      unit: 'pt',
       format: [350, 800],
     });
 
     let posY = 50;
 
     // Draw the main title
-    const text = "Versatility";
-    const headColor = "#79AC78";
+    const text = 'Versatility';
+    const headColor = '#79AC78';
     const fontSize = 18;
     const textWidth =
       (doc.getStringUnitWidth(text) * fontSize) / doc.internal.scaleFactor;
@@ -130,22 +130,22 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     posY += 40;
 
     // Draw the line break
-    const lineBreakColor = "#000000";
-    const lineBreak = " - ".repeat(100);
+    const lineBreakColor = '#000000';
+    const lineBreak = ' - '.repeat(100);
 
     doc.setTextColor(lineBreakColor);
     doc.text(lineBreak, 10, posY);
 
     // Draw the table headers
-    const tableHeadColor = "#000000";
+    const tableHeadColor = '#000000';
     const tableHeadFontSize = 12;
     posY += 15;
 
     doc.setTextColor(tableHeadColor);
     doc.setFontSize(tableHeadFontSize);
-    doc.text("QTY", 30, posY);
-    doc.text("ITEM", 100, posY);
-    doc.text("AMOUNT", 270, posY);
+    doc.text('QTY', 30, posY);
+    doc.text('ITEM', 100, posY);
+    doc.text('AMOUNT', 270, posY);
 
     // Draw the line below the headers
     posY += 10;
@@ -157,7 +157,7 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
 
       doc.setFontSize(12);
       // Convert values to strings before passing them to text method
-      doc.text(item.quantity.toString() + "x", 30, posY);
+      doc.text(item.quantity.toString() + 'x', 30, posY);
       doc.text(item.name.toString(), 100, posY);
       doc.text(item.total.toFixed(2).toString(), 270, posY);
 
@@ -173,18 +173,18 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     const overallTotal =
       transactionData && transactionData.overallTotal
         ? transactionData.overallTotal.toFixed(2)
-        : "N/A";
+        : 'N/A';
 
-    doc.text(`ITEM COUNT:`, 30, posY + 20);
-    doc.text(`TOTAL:`, 30, posY + 40);
+    doc.text('ITEM COUNT:', 30, posY + 20);
+    doc.text('TOTAL:', 30, posY + 40);
 
     doc.text(`${itemCount}`, 250, posY + 20);
     doc.text(`${overallTotal}`, 250, posY + 40);
 
     posY += 25;
 
-    const say = "THANK YOU FOR YOUR PURCHASE!";
-    const sayHeadColor = "#00000";
+    const say = 'THANK YOU FOR YOUR PURCHASE!';
+    const sayHeadColor = '#00000';
     const sayFontSize = 10;
     const sayTextWidth =
       (doc.getStringUnitWidth(say) * sayFontSize) / doc.internal.scaleFactor;
@@ -199,7 +199,7 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     const qrCodeImageWidth = 50; // Adjust width as needed
     // const qrCodeImageHeight = 50; // Adjust height as needed
     const qrCodeText =
-      "Scan the QR Code!\nYour feedbacks will greatly\nbe appreciated";
+      'Scan the QR Code!\nYour feedbacks will greatly\nbe appreciated';
 
     // Calculate positions
     const qrCodeImageX = 10; // Adjust X coordinate as needed
@@ -221,39 +221,39 @@ const CartSidebar = ({ cartItems, removeFromCart, isOpen, setIsOpen }) => {
     doc.text(
       `Date: ${formatDate(transactionData.currentDate)}`,
       145,
-      posY + 10
+      posY + 10,
     );
 
-    doc.save(transactionData.transactionId + ".pdf");
+    doc.save(transactionData.transactionId + '.pdf');
   };
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const options = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
       hour12: true,
     };
-    return date.toLocaleDateString("en-US", options);
+    return date.toLocaleDateString('en-US', options);
   };
 
   const getCurrentDate = () => {
     const now = new Date();
     const currentDate = `${now.getFullYear()}-${(now.getMonth() + 1)
       .toString()
-      .padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")} ${now
+      .padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now
       .getHours()
       .toString()
-      .padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+      .padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     return currentDate;
   };
 
   return (
     <>
-      <div className={`cart-sidebar ${isOpen ? "open" : ""}`}>
+      <div className={`cart-sidebar ${isOpen ? 'open' : ''}`}>
         <button className="close-btn" onClick={() => setIsOpen(false)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

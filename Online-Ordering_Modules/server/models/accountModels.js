@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import database from '../../../config/db.js';
+import database from '../config/dbConfig.js';
 
 const Accounts = database.define('accounts', {
     account_id: {
@@ -30,7 +30,7 @@ const Accounts = database.define('accounts', {
         unique: true
     },
     account_contactNo: {
-        type: DataTypes.INTEGER, // Changed to INTEGER, assuming it's a phone number
+        type: DataTypes.BIGINT,
         allowNull: false
     },
     isAccountVerified: {

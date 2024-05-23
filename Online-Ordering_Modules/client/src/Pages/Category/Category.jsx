@@ -1,16 +1,16 @@
-import "./Category.css";
-import { useEffect, useState } from "react";
-import profileImage from "../../assets/img/profile.jpg";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import './Category.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import profileImage from '../../assets/img/profile.jpg';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [status, setStatus] = useState(false);
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const [modalCreate, setModalCreate] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState(0);
@@ -25,14 +25,14 @@ const Category = () => {
   };
 
   const toastConfig = {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: 'light',
   };
 
   // Function to load the selected image for the product
@@ -43,7 +43,7 @@ const Category = () => {
   };
 
   const toggleModalCreate = () => {
-    setName("");
+    setName('');
     setStatus(false);
     setFile(null);
     setModalCreate(!modalCreate);
@@ -54,16 +54,16 @@ const Category = () => {
   };
 
   const handleToggleSidebar = () => {
-    // Toggle sidebar
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("hide");
+  // Toggle sidebar
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('hide');
   };
 
   // Function to fetch a product by ID for updating
   const getCategoryById = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/categories/${id}`
+        `http://localhost:5000/categories/${id}`,
       );
       const product = response.data;
       setName(product.name);
@@ -77,16 +77,16 @@ const Category = () => {
   };
 
   useEffect(() => {
-    document.title = "Categories";
+    document.title = 'Categories';
     getAllCategory();
   }, []);
 
   const getAllCategory = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/categories");
+      const response = await axios.get('http://localhost:5000/categories');
       setCategories(response.data);
     } catch (error) {
-      console.log("Error fetching the category", error);
+      console.log('Error fetching the category', error);
     }
   };
 
@@ -103,19 +103,19 @@ const Category = () => {
   const saveCategory = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("status", status);
+    formData.append('name', name);
+    formData.append('status', status);
     if (file) {
-      formData.append("file", file);
+      formData.append('file', file);
     }
 
     try {
-      await axios.post("http://localhost:5000/categories", formData, {
+      await axios.post('http://localhost:5000/categories', formData, {
         headers: {
-          "Content-type": "multipart/form-data",
+          'Content-type': 'multipart/form-data',
         },
       });
-      toast.success("Category Created Successfully", toastConfig);
+      toast.success('Category Created Successfully', toastConfig);
       getAllCategory();
       toggleModalCreate();
     } catch (error) {
@@ -136,7 +136,7 @@ const Category = () => {
         <ul className="side-menu top">
           <span className="side-text-category">Menu</span>
           <Link to="/orders">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-cart"></i>
                 <span className="text">Order</span>
@@ -145,7 +145,7 @@ const Category = () => {
           </Link>
           <span className="side-text-category">Customize</span>
           <Link to="/products">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-package"></i>
                 <span className="text">Product</span>
@@ -153,7 +153,7 @@ const Category = () => {
             </li>
           </Link>
           <Link to="/categories">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-category"></i>
                 <span className="text">Category</span>
@@ -163,7 +163,7 @@ const Category = () => {
 
           <span className="side-text-category">Transaction</span>
           <Link to="/transactions">
-            <li className={activeMenuItem === 1 ? "active" : ""}>
+            <li className={activeMenuItem === 1 ? 'active' : ''}>
               <a href="#" onClick={() => handleMenuItemClick(0)}>
                 <i className="bx bx-history"></i>
                 <span className="text">History</span>
@@ -186,12 +186,7 @@ const Category = () => {
               </button>
             </div>
           </form>
-          <input type="checkbox" id="switch-mode" hidden />
-          <label htmlFor="switch-mode" className="switch-mode"></label>
-          <a href="#" className="notification">
-            <i className="bx bxs-bell"></i>
-            <span className="num">8</span>
-          </a>
+          <span className="profile-name">Argie</span>
           <a href="#" className="profile">
             <img src={profileImage} />
           </a>
@@ -236,13 +231,13 @@ const Category = () => {
               <div>
                 <label>
                   Name<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <input
                   className="input"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   placeholder="Type category name"
                   required
                 />
@@ -302,13 +297,13 @@ const Category = () => {
               <div>
                 <label>
                   Name<span>*</span>
-                </label>{" "}
+                </label>{' '}
                 <br></br>
                 <input
                   className="input"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   placeholder="Type category name"
                   required
                 />
@@ -316,7 +311,7 @@ const Category = () => {
               </div>
               <div
                 className={`product-cell status-cell ${
-                  isChecked ? "disabled" : "active"
+                  isChecked ? 'disabled' : 'active'
                 }`}
               >
                 <label>Category Status</label>
@@ -335,7 +330,7 @@ const Category = () => {
                 ></label>
                 <input type="hidden" name="status" value={isChecked ? 1 : 0} />
                 <p>
-                  Status: {!isChecked ? "0 (In Stock)" : "1 (Out of Stock)"}
+                  Status: {!isChecked ? '0 (In Stock)' : '1 (Out of Stock)'}
                 </p>
               </div>
               <div className="update_img">
@@ -345,7 +340,7 @@ const Category = () => {
                   {preview ? (
                     <img src={preview} alt={name} width={120} height={120} />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               </div>

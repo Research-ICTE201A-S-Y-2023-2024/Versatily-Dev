@@ -6,6 +6,7 @@ import ProductRoutes from './routes/productRoutes.js';
 import CategoryRoutes from './routes/categoryRoutes.js';
 import ItemsRoute from './routes/itemRoutes.js';
 import OrderRoutes from './routes/orderRoutes.js';
+import AccountRoutes from './routes/accountRoutes.js';
 
 const app = express();
 const PORT = 5000;
@@ -29,6 +30,7 @@ app.use('/products', ProductRoutes);
 app.use('/categories', CategoryRoutes)
 app.use('/items', ItemsRoute);
 app.use('/orders', OrderRoutes);
+app.use('/', AccountRoutes);
 
 // Start server
 app.listen(PORT, () => {
