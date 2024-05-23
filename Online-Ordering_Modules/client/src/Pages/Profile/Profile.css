@@ -170,10 +170,10 @@ a {
   position: relative;
   width: 100%;
   background: var(--tertiary);
-  border: none;
+  border: 1px solid #cacaca;
   outline: none;
   padding: 25px 10px 7.5px;
-  border-radius: 4px;
+  border-radius: 5px;
   color: #000;
   font-weight: 500;
   font-size: 1em;
@@ -191,19 +191,7 @@ a {
   font-style: normal;
   color: #000;
   transition: 0.5s;
-}
-
-.account-form
-  .account-content
-  .account-form-field
-  .account-inputBox
-  input:focus,
-.account-form
-  .account-content
-  .account-form-field
-  .account-inputBox
-  input:valid {
-  border: 1px solid #cacaca;
+  
 }
 
 .account-form
