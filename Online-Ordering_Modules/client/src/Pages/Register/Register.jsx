@@ -45,7 +45,7 @@ const Register = () => {
         );
         toast.success('Successfully register user', toastConfig);
         setTimeout(() => {
-          navigate('/login');
+          Navigate('/login');
         }, 2100);
         console.log(response.data);
       } else if (formData.account_password !== verifyPassowrd) {
