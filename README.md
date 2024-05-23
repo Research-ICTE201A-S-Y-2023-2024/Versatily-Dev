@@ -21,6 +21,6 @@
 ## Specfic Functions
 - Account Modules
 - CMS Module
-- Request Module
+- Approval & Rejection Request Module
 - Highlights Section, Product Section, Post Section, Testimonial Section Modules
 - CRUD Operations with Live Preview Editor Module
