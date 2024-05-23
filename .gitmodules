@@ -1,3 +1,3 @@
-[submodule "feedback-system"]
-	path = feedback-system
+[submodule "FSv2"]
+	path = FSv2
 	url = https://github.com/fvjr156/feedback-system.git
