@@ -1,0 +1,24 @@
+*{
+  font-family: var(--poppins);
+}
+
+:root{
+  /*Color Global CSS Formats*/
+  --primary: #D0D0D0;
+  --secondary: #615B41;
+  --tertiary: #FFFFFF;
+  --bg-color: #d1a577;
+  --cont-color: #EECDAC;
+
+  /*Text Global CSS Formats*/
+  --poppins: "Poppins", sans-serif;
+  --heading : 30px;
+  --semibold: 700;
+  --medium: 500;
+
+  /*Input CSS Formats*/
+  --input-background: #ECECEC;
+  --input-stroke: #D3D3D3;
+  --stress: #525252
+}
+
