@@ -1,0 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--poppins);
+}
+
+:root {
+  /*Color Global CSS Formats*/
+  --primary-color: #79ac78;
+  --secondary: #615b41;
+  --tertiary: #ffffff;
+  --light-green: #9fc088;
+
+  /*Text Global CSS Formats*/
+  --poppins: "Poppins", sans-serif;
+  --semibold: 700;
+  --medium: 500;
+
+  /*Input CSS Formats*/
+  --input-background: #ececec;
+  --input-stroke: #d3d3d3;
+  --stress: #525252;
+}
