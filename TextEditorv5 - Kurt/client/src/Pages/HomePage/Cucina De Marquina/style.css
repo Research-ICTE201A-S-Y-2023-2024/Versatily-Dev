@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+  .allura-regular {
+    font-family: "Allura", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.Landing {
+    height: 100%;
+    width: 100%;
+    background-image: url('CDM.jpeg');
+    background-size: cover;
+}
+
+.Landing-HeadText{
+    padding-top: 15%;
+    font-size: 101px;
+    text-align: center;
+    font-weight: 900;
+    color: #EECDAC;
+}
+.Landing-SubText{
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 3%;
+    font-size: 20px;
+}
+.Landing-Buttons {
+    padding-top: 5%;
+    text-align: center;
+}
+.Order{
+    font-size: 20px;
+    border-radius: 59px;
+    width: 304px;
+    height: 56px;
+    border: solid, 2px, #615B41;
+    background-color: #615B41;
+    color: #EECDAC;
+}
+.View-Products{
+    font-size: 20px;
+    border-radius: 59px;
+    width: 304px;
+    height: 56px;
+    border: solid, 2px, #615B41;
+    color: #615B41;
+    background-color: transparent;
+}
+.Welcome{
+    height: 90%;
+    width: 100%;
+    background-color: #615B41;
+}
+
+.Welcome-Photo{
+    float: right;
+    border-radius: 20px;
+    width: 30%;
+    height: 80%;
+    background-color: #D9D9D9; 
+    margin-top: 5%;
+    margin-right: 7%;
+}
+
+.Welcome-HeadText{
+    padding-top: 7%;
+    padding-left: 10%;
+    padding-right: 55%;
+    font-size: 60px;
+    font-weight: 600;
+    color: #EECDAC;
+}
+
+.Welcome-SubText{
+    font-size: 24px;
+    color: #FFFFFF;
+    padding-left: 10%;
+    padding-right: 55%;
+    padding-top: 3%;
+}
+.Gallery{
+    width: 100%;
+    height: 100%;
+    background-color: #EECDAC;
+}
+.Gallery-HeadText{
+    color: #615B41;
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 3%;
+}
+.Gallery {
+    text-align: center; /* center the head text */
+}
+  
+.Gallery-HeadText {
+font-size: 36px;
+font-weight: bold;
+margin-bottom: 20px; /* add some space between head text and boxes */
+}
+  
+.Gallery-Boxes {
+    display: flex; /* use flexbox to center the boxes */
+    flex-wrap: wrap; /* allow boxes to wrap to the next line */
+    justify-content: center; /* center the boxes horizontally */
+}
+.Gallery-Box1, .Gallery-Box2,.Gallery-Box3, .Gallery-Box4,.Gallery-Box5,.Gallery-Box6{
+    width: 30%;
+    margin: 10px;
+    background-color: #D9D9D9;
+    height: 350px;
+    border-radius: 20px;
+}
+.Explore{
+    height: 70%;
+    width: 100%;
+    background-color: #615B41;
+}
+.Explore-HeadText{
+    font-size: 40px;
+    font-weight: 600;
+    padding-top: 5%;
+    padding-bottom: 3%;
+    color: #EECDAC;
+    text-align: center;
+}
+/* Global styles */
+.Products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .Product1,.Product2,.Product3 {
+    margin: 1px;
+    width: 380px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .P1-Photo,.P2-Photo,.P3-Photo {
+    width: 100%;
+    height: 310px;
+    background-color: #ccc;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .P1-Text,.P2-Text,.P3-Text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .More{
+    height: 150%;
+    width: 100%;
+    background-color: #EECDAC;
+  }
+  .More-HeadText{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    color: #615B41;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+  .More-button-1 {
+    display: flex;
+    justify-content: center;
+  }
+  .Post,.Menu {
+    background-color: #FFFFFF;
+    color: #615B41;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 430px;
+    width: 470px;
+    border-radius: 20px;
+    font-size: 32px;
+    font-weight: 500;
+
+  }
+  .Post{
+    margin-right: 5%;
+  }
+  .CDM {
+    text-align: center;
+    font-size: 70px;
+    padding-top: 10%;
+    font-family: 'Allura';
+  }
+  .More-Button-2 {
+    display: grid;
+    place-items: center;
+    height: 50px; /* or any other height you want */
+    padding-top: 10%;
+  }
+  .Order-Now{
+    background-color: transparent;
+    border:#615B41, solid, 3px;
+    border-radius: 20px;
+    width: 300px;
+    height: 80px;
+    font-size: 32px;
+    font-weight: 500;
+    color: #615B41;
+  }
+  .Icon-Post{
+    height: 128px;
+    width: 128px;
+  }
+  .Icon-Menu{
+    height: 128px;
+    width: 128px;
+  }
+  /* 1680 Screen size */
+  
+  @media only screen and (max-width: 1680px){
+    .Landing-HeadText{
+      font-size: 90px;
+    }
+    .Welcome{
+      height: 90%;
+      width: 100%;
+    }
+    .Welcome-Photo{
+      height: 80%;
+    }
+    .Welcome-HeadText{
+      font-size: 50px; 
+    }
+    .Welcome-SubText{
+      font-size: 24px;
+    }
+  }
+  
+  /* 1500 Screen size */
+  @media only screen and (max-width: 1500px){
+    .Welcome-HeadText{
+      font-size: 40px;
+    }
+    .Welcome-SubText{
+      font-size: 20px;
+    }
+    .Gallery{
+      height: 130%;
+    }
+    .Explore{
+      height: 80%;
+    }
+  }
+
+  @media only screen and (max-width:1200px) {
+    .Welcome{
+      height: 100%;
+    }
+    .Product1,.Product2,.Product3{
+      width: 300px;
+    }
+  }
